@@ -1,0 +1,2296 @@
+{
+  "start_date": "2025-08-08",
+  "cycle_length_days": 21,
+  "dates": [
+    "2025-08-06",
+    "2025-08-12",
+    "2025-08-28",
+    "2025-09-02",
+    "2025-09-18",
+    "2025-09-23",
+    "2025-10-09",
+    "2025-10-14",
+    "2025-10-24",
+    "2025-10-30"
+  ],
+  "indicators": {
+    "不典型淋巴细胞百分比": {
+      "unit": "%",
+      "ref": {
+        "lower": 0.0,
+        "upper": 2.0
+      },
+      "series": [
+        {
+          "date": "2025-09-18",
+          "value": 0.4,
+          "status": "-",
+          "flag": "-",
+          "phase": "第2次化疗d21"
+        },
+        {
+          "date": "2025-09-23",
+          "value": 0.1,
+          "status": "-",
+          "flag": "-",
+          "phase": "第3次化疗d5"
+        },
+        {
+          "date": "2025-10-09",
+          "value": 0.1,
+          "status": "-",
+          "flag": "-",
+          "phase": "第3次化疗d21"
+        },
+        {
+          "date": "2025-10-14",
+          "value": 0.1,
+          "status": "-",
+          "flag": "-",
+          "phase": "第4次化疗d5"
+        },
+        {
+          "date": "2025-10-30",
+          "value": 0.3,
+          "status": "-",
+          "flag": "-",
+          "phase": null
+        }
+      ]
+    },
+    "不典型淋巴细胞绝对数": {
+      "unit": "-",
+      "ref": {
+        "lower": 0.0,
+        "upper": 0.2
+      },
+      "series": [
+        {
+          "date": "2025-09-18",
+          "value": 0.01,
+          "status": "-",
+          "flag": "-",
+          "phase": "第2次化疗d21"
+        },
+        {
+          "date": "2025-09-23",
+          "value": 0.02,
+          "status": "-",
+          "flag": "-",
+          "phase": "第3次化疗d5"
+        },
+        {
+          "date": "2025-10-09",
+          "value": 0.01,
+          "status": "-",
+          "flag": "-",
+          "phase": "第3次化疗d21"
+        },
+        {
+          "date": "2025-10-14",
+          "value": 0.01,
+          "status": "-",
+          "flag": "-",
+          "phase": "第4次化疗d5"
+        },
+        {
+          "date": "2025-10-30",
+          "value": 0.02,
+          "status": "-",
+          "flag": "-",
+          "phase": null
+        }
+      ]
+    },
+    "中性粒细胞百分数": {
+      "unit": "%",
+      "ref": {
+        "lower": 40.0,
+        "upper": 75.0
+      },
+      "series": [
+        {
+          "date": "2025-08-06",
+          "value": 63.1,
+          "status": "-",
+          "flag": "-",
+          "phase": "首次化疗前"
+        },
+        {
+          "date": "2025-08-12",
+          "value": 91.8,
+          "status": "↑",
+          "flag": "↑",
+          "phase": "第1次化疗d5"
+        },
+        {
+          "date": "2025-08-28",
+          "value": 72.5,
+          "status": "-",
+          "flag": "-",
+          "phase": "第1次化疗d21"
+        },
+        {
+          "date": "2025-09-02",
+          "value": 94.0,
+          "status": "↑",
+          "flag": "↑",
+          "phase": "第2次化疗d5"
+        },
+        {
+          "date": "2025-09-18",
+          "value": 76.2,
+          "status": "↑",
+          "flag": "↑",
+          "phase": "第2次化疗d21"
+        },
+        {
+          "date": "2025-09-23",
+          "value": 89.6,
+          "status": "↑",
+          "flag": "↑",
+          "phase": "第3次化疗d5"
+        },
+        {
+          "date": "2025-10-09",
+          "value": 80.1,
+          "status": "↑",
+          "flag": "↑",
+          "phase": "第3次化疗d21"
+        },
+        {
+          "date": "2025-10-14",
+          "value": 85.2,
+          "status": "↑",
+          "flag": "↑",
+          "phase": "第4次化疗d5"
+        },
+        {
+          "date": "2025-10-24",
+          "value": 76.5,
+          "status": "↑",
+          "flag": "↑",
+          "phase": null
+        },
+        {
+          "date": "2025-10-30",
+          "value": 74.3,
+          "status": "-",
+          "flag": "-",
+          "phase": null
+        }
+      ]
+    },
+    "中性粒细胞绝对值": {
+      "unit": "10^9/L",
+      "ref": {
+        "lower": 1.8,
+        "upper": 6.3
+      },
+      "series": [
+        {
+          "date": "2025-10-24",
+          "value": 4.83,
+          "status": "-",
+          "flag": "-",
+          "phase": null
+        }
+      ]
+    },
+    "中性粒细胞计数": {
+      "unit": "10^9/L",
+      "ref": {
+        "lower": 1.8,
+        "upper": 6.3
+      },
+      "series": [
+        {
+          "date": "2025-08-06",
+          "value": 4.64,
+          "status": "-",
+          "flag": "-",
+          "phase": "首次化疗前"
+        },
+        {
+          "date": "2025-08-12",
+          "value": 17.0,
+          "status": "↑",
+          "flag": "↑",
+          "phase": "第1次化疗d5"
+        },
+        {
+          "date": "2025-08-28",
+          "value": 3.5,
+          "status": "-",
+          "flag": "-",
+          "phase": "第1次化疗d21"
+        },
+        {
+          "date": "2025-09-02",
+          "value": 17.3,
+          "status": "↑",
+          "flag": "↑",
+          "phase": "第2次化疗d5"
+        },
+        {
+          "date": "2025-09-18",
+          "value": 5.1,
+          "status": "-",
+          "flag": "-",
+          "phase": "第2次化疗d21"
+        },
+        {
+          "date": "2025-09-23",
+          "value": 20.1,
+          "status": "↑",
+          "flag": "↑",
+          "phase": "第3次化疗d5"
+        },
+        {
+          "date": "2025-10-09",
+          "value": 5.83,
+          "status": "-",
+          "flag": "-",
+          "phase": "第3次化疗d21"
+        },
+        {
+          "date": "2025-10-14",
+          "value": 11.9,
+          "status": "↑",
+          "flag": "↑",
+          "phase": "第4次化疗d5"
+        },
+        {
+          "date": "2025-10-30",
+          "value": 2.79,
+          "status": "-",
+          "flag": "-",
+          "phase": null
+        }
+      ]
+    },
+    "单核细胞百分数": {
+      "unit": "%",
+      "ref": {
+        "lower": 3.0,
+        "upper": 10.0
+      },
+      "series": [
+        {
+          "date": "2025-08-06",
+          "value": 7.9,
+          "status": "-",
+          "flag": "-",
+          "phase": "首次化疗前"
+        },
+        {
+          "date": "2025-08-12",
+          "value": 0.7,
+          "status": "↓",
+          "flag": "↓",
+          "phase": "第1次化疗d5"
+        },
+        {
+          "date": "2025-08-28",
+          "value": 7.1,
+          "status": "-",
+          "flag": "-",
+          "phase": "第1次化疗d21"
+        },
+        {
+          "date": "2025-09-02",
+          "value": 1.4,
+          "status": "↓",
+          "flag": "↓",
+          "phase": "第2次化疗d5"
+        },
+        {
+          "date": "2025-09-18",
+          "value": 6.5,
+          "status": "-",
+          "flag": "-",
+          "phase": "第2次化疗d21"
+        },
+        {
+          "date": "2025-09-23",
+          "value": 1.4,
+          "status": "↓",
+          "flag": "↓",
+          "phase": "第3次化疗d5"
+        },
+        {
+          "date": "2025-10-09",
+          "value": 5.3,
+          "status": "-",
+          "flag": "-",
+          "phase": "第3次化疗d21"
+        },
+        {
+          "date": "2025-10-14",
+          "value": 6.3,
+          "status": "-",
+          "flag": "-",
+          "phase": "第4次化疗d5"
+        },
+        {
+          "date": "2025-10-24",
+          "value": 4.2,
+          "status": "-",
+          "flag": "-",
+          "phase": null
+        },
+        {
+          "date": "2025-10-30",
+          "value": 7.9,
+          "status": "-",
+          "flag": "-",
+          "phase": null
+        }
+      ]
+    },
+    "单核细胞绝对值": {
+      "unit": "10^9/L",
+      "ref": {
+        "lower": 0.1,
+        "upper": 0.6
+      },
+      "series": [
+        {
+          "date": "2025-10-24",
+          "value": 0.26,
+          "status": "-",
+          "flag": "-",
+          "phase": null
+        }
+      ]
+    },
+    "单核细胞计数": {
+      "unit": "10^9/L",
+      "ref": {
+        "lower": 0.1,
+        "upper": 0.6
+      },
+      "series": [
+        {
+          "date": "2025-08-06",
+          "value": 0.58,
+          "status": "-",
+          "flag": "-",
+          "phase": "首次化疗前"
+        },
+        {
+          "date": "2025-08-12",
+          "value": 0.13,
+          "status": "-",
+          "flag": "-",
+          "phase": "第1次化疗d5"
+        },
+        {
+          "date": "2025-08-28",
+          "value": 0.34,
+          "status": "-",
+          "flag": "-",
+          "phase": "第1次化疗d21"
+        },
+        {
+          "date": "2025-09-02",
+          "value": 0.25,
+          "status": "-",
+          "flag": "-",
+          "phase": "第2次化疗d5"
+        },
+        {
+          "date": "2025-09-18",
+          "value": 0.44,
+          "status": "-",
+          "flag": "-",
+          "phase": "第2次化疗d21"
+        },
+        {
+          "date": "2025-09-23",
+          "value": 0.31,
+          "status": "-",
+          "flag": "-",
+          "phase": "第3次化疗d5"
+        },
+        {
+          "date": "2025-10-09",
+          "value": 0.39,
+          "status": "-",
+          "flag": "-",
+          "phase": "第3次化疗d21"
+        },
+        {
+          "date": "2025-10-14",
+          "value": 0.86,
+          "status": "-",
+          "flag": "↑",
+          "phase": "第4次化疗d5"
+        },
+        {
+          "date": "2025-10-30",
+          "value": 0.3,
+          "status": "-",
+          "flag": "-",
+          "phase": null
+        }
+      ]
+    },
+    "嗜碱性粒细胞百分数": {
+      "unit": "%",
+      "ref": {
+        "lower": 0.0,
+        "upper": 1.0
+      },
+      "series": [
+        {
+          "date": "2025-08-06",
+          "value": 0.3,
+          "status": "-",
+          "flag": "-",
+          "phase": "首次化疗前"
+        },
+        {
+          "date": "2025-08-12",
+          "value": 0.5,
+          "status": "-",
+          "flag": "-",
+          "phase": "第1次化疗d5"
+        },
+        {
+          "date": "2025-08-28",
+          "value": 0.2,
+          "status": "-",
+          "flag": "-",
+          "phase": "第1次化疗d21"
+        },
+        {
+          "date": "2025-09-02",
+          "value": 0.2,
+          "status": "-",
+          "flag": "-",
+          "phase": "第2次化疗d5"
+        },
+        {
+          "date": "2025-09-18",
+          "value": 0.1,
+          "status": "-",
+          "flag": "-",
+          "phase": "第2次化疗d21"
+        },
+        {
+          "date": "2025-09-23",
+          "value": 0.1,
+          "status": "-",
+          "flag": "-",
+          "phase": "第3次化疗d5"
+        },
+        {
+          "date": "2025-10-09",
+          "value": 0.2,
+          "status": "-",
+          "flag": "-",
+          "phase": "第3次化疗d21"
+        },
+        {
+          "date": "2025-10-14",
+          "value": 0.1,
+          "status": "-",
+          "flag": "-",
+          "phase": "第4次化疗d5"
+        },
+        {
+          "date": "2025-10-24",
+          "value": 0.2,
+          "status": "-",
+          "flag": "-",
+          "phase": null
+        },
+        {
+          "date": "2025-10-30",
+          "value": 0.4,
+          "status": "-",
+          "flag": "-",
+          "phase": null
+        }
+      ]
+    },
+    "嗜碱性粒细胞绝对值": {
+      "unit": "10^9/L",
+      "ref": {
+        "lower": 0.0,
+        "upper": 0.06
+      },
+      "series": [
+        {
+          "date": "2025-10-24",
+          "value": 0.01,
+          "status": "-",
+          "flag": "-",
+          "phase": null
+        }
+      ]
+    },
+    "嗜碱性粒细胞计数": {
+      "unit": "10^9/L",
+      "ref": {
+        "lower": 0.0,
+        "upper": 0.06
+      },
+      "series": [
+        {
+          "date": "2025-08-06",
+          "value": 0.02,
+          "status": "-",
+          "flag": "-",
+          "phase": "首次化疗前"
+        },
+        {
+          "date": "2025-08-12",
+          "value": 0.1,
+          "status": "↑",
+          "flag": "↑",
+          "phase": "第1次化疗d5"
+        },
+        {
+          "date": "2025-08-28",
+          "value": 0.01,
+          "status": "-",
+          "flag": "-",
+          "phase": "第1次化疗d21"
+        },
+        {
+          "date": "2025-09-02",
+          "value": 0.04,
+          "status": "-",
+          "flag": "-",
+          "phase": "第2次化疗d5"
+        },
+        {
+          "date": "2025-09-18",
+          "value": 0.03,
+          "status": "-",
+          "flag": "-",
+          "phase": "第2次化疗d21"
+        },
+        {
+          "date": "2025-09-23",
+          "value": 0.01,
+          "status": "-",
+          "flag": "-",
+          "phase": "第3次化疗d5"
+        },
+        {
+          "date": "2025-10-09",
+          "value": 0.01,
+          "status": "-",
+          "flag": "-",
+          "phase": "第3次化疗d21"
+        },
+        {
+          "date": "2025-10-14",
+          "value": 0.01,
+          "status": "-",
+          "flag": "-",
+          "phase": "第4次化疗d5"
+        },
+        {
+          "date": "2025-10-30",
+          "value": 0.01,
+          "status": "-",
+          "flag": "-",
+          "phase": null
+        }
+      ]
+    },
+    "嗜酸性粒细胞百分数": {
+      "unit": "%",
+      "ref": {
+        "lower": 0.4,
+        "upper": 8.0
+      },
+      "series": [
+        {
+          "date": "2025-08-06",
+          "value": 1.6,
+          "status": "-",
+          "flag": "-",
+          "phase": "首次化疗前"
+        },
+        {
+          "date": "2025-08-12",
+          "value": 0.4,
+          "status": "-",
+          "flag": "-",
+          "phase": "第1次化疗d5"
+        },
+        {
+          "date": "2025-08-28",
+          "value": 0.2,
+          "status": "↓",
+          "flag": "↓",
+          "phase": "第1次化疗d21"
+        },
+        {
+          "date": "2025-09-02",
+          "value": 0.3,
+          "status": "↓",
+          "flag": "↓",
+          "phase": "第2次化疗d5"
+        },
+        {
+          "date": "2025-09-18",
+          "value": 1.0,
+          "status": "-",
+          "flag": "-",
+          "phase": "第2次化疗d21"
+        },
+        {
+          "date": "2025-09-23",
+          "value": 4.2,
+          "status": "-",
+          "flag": "-",
+          "phase": "第3次化疗d5"
+        },
+        {
+          "date": "2025-10-09",
+          "value": 0.9,
+          "status": "-",
+          "flag": "-",
+          "phase": "第3次化疗d21"
+        },
+        {
+          "date": "2025-10-14",
+          "value": 0.4,
+          "status": "-",
+          "flag": "-",
+          "phase": "第4次化疗d5"
+        },
+        {
+          "date": "2025-10-24",
+          "value": 0.1,
+          "status": "↓",
+          "flag": "↓",
+          "phase": null
+        },
+        {
+          "date": "2025-10-30",
+          "value": 0.9,
+          "status": "-",
+          "flag": "-",
+          "phase": null
+        }
+      ]
+    },
+    "嗜酸性粒细胞绝对值": {
+      "unit": "10^9/L",
+      "ref": {
+        "lower": 0.02,
+        "upper": 0.52
+      },
+      "series": [
+        {
+          "date": "2025-10-24",
+          "value": 0.01,
+          "status": "↓",
+          "flag": "↓",
+          "phase": null
+        }
+      ]
+    },
+    "嗜酸性粒细胞计数": {
+      "unit": "10^9/L",
+      "ref": {
+        "lower": 0.02,
+        "upper": 0.52
+      },
+      "series": [
+        {
+          "date": "2025-08-06",
+          "value": 0.12,
+          "status": "-",
+          "flag": "-",
+          "phase": "首次化疗前"
+        },
+        {
+          "date": "2025-08-12",
+          "value": 0.07,
+          "status": "-",
+          "flag": "-",
+          "phase": "第1次化疗d5"
+        },
+        {
+          "date": "2025-08-28",
+          "value": 0.01,
+          "status": "↓",
+          "flag": "↓",
+          "phase": "第1次化疗d21"
+        },
+        {
+          "date": "2025-09-02",
+          "value": 0.06,
+          "status": "-",
+          "flag": "-",
+          "phase": "第2次化疗d5"
+        },
+        {
+          "date": "2025-09-18",
+          "value": 0.07,
+          "status": "-",
+          "flag": "-",
+          "phase": "第2次化疗d21"
+        },
+        {
+          "date": "2025-09-23",
+          "value": 0.94,
+          "status": "↑",
+          "flag": "↑",
+          "phase": "第3次化疗d5"
+        },
+        {
+          "date": "2025-10-09",
+          "value": 0.07,
+          "status": "-",
+          "flag": "-",
+          "phase": "第3次化疗d21"
+        },
+        {
+          "date": "2025-10-14",
+          "value": 0.06,
+          "status": "-",
+          "flag": "-",
+          "phase": "第4次化疗d5"
+        },
+        {
+          "date": "2025-10-30",
+          "value": 0.03,
+          "status": "-",
+          "flag": "-",
+          "phase": null
+        }
+      ]
+    },
+    "大血小板比率": {
+      "unit": "%",
+      "ref": {
+        "lower": 13.0,
+        "upper": 43.0
+      },
+      "series": [
+        {
+          "date": "2025-08-06",
+          "value": 22.6,
+          "status": "-",
+          "flag": "-",
+          "phase": "首次化疗前"
+        },
+        {
+          "date": "2025-08-12",
+          "value": 39.4,
+          "status": "-",
+          "flag": "-",
+          "phase": "第1次化疗d5"
+        },
+        {
+          "date": "2025-08-28",
+          "value": 30.3,
+          "status": "-",
+          "flag": "-",
+          "phase": "第1次化疗d21"
+        },
+        {
+          "date": "2025-09-02",
+          "value": 34.0,
+          "status": "-",
+          "flag": "-",
+          "phase": "第2次化疗d5"
+        },
+        {
+          "date": "2025-10-24",
+          "value": 14.0,
+          "status": "-",
+          "flag": "-",
+          "phase": null
+        }
+      ]
+    },
+    "巨大不成熟细胞百分比": {
+      "unit": "%",
+      "ref": {
+        "lower": 0.0,
+        "upper": 2.0
+      },
+      "series": [
+        {
+          "date": "2025-09-18",
+          "value": 0.6,
+          "status": "-",
+          "flag": "-",
+          "phase": "第2次化疗d21"
+        },
+        {
+          "date": "2025-09-23",
+          "value": 1.8,
+          "status": "-",
+          "flag": "-",
+          "phase": "第3次化疗d5"
+        },
+        {
+          "date": "2025-10-09",
+          "value": 0.8,
+          "status": "-",
+          "flag": "-",
+          "phase": "第3次化疗d21"
+        },
+        {
+          "date": "2025-10-14",
+          "value": 0.3,
+          "status": "-",
+          "flag": "-",
+          "phase": "第4次化疗d5"
+        },
+        {
+          "date": "2025-10-24",
+          "value": 0.0,
+          "status": "-",
+          "flag": "-",
+          "phase": null
+        },
+        {
+          "date": "2025-10-30",
+          "value": 0.7,
+          "status": "-",
+          "flag": "-",
+          "phase": null
+        }
+      ]
+    },
+    "巨大未成熟细胞绝对值": {
+      "unit": "-",
+      "ref": {
+        "lower": 0.0,
+        "upper": 0.2
+      },
+      "series": [
+        {
+          "date": "2025-09-18",
+          "value": 0.04,
+          "status": "-",
+          "flag": "-",
+          "phase": "第2次化疗d21"
+        },
+        {
+          "date": "2025-09-23",
+          "value": 0.2,
+          "status": "-",
+          "flag": "-",
+          "phase": "第3次化疗d5"
+        },
+        {
+          "date": "2025-10-09",
+          "value": 0.06,
+          "status": "-",
+          "flag": "-",
+          "phase": "第3次化疗d21"
+        },
+        {
+          "date": "2025-10-14",
+          "value": 0.04,
+          "status": "-",
+          "flag": "-",
+          "phase": "第4次化疗d5"
+        },
+        {
+          "date": "2025-10-24",
+          "value": 0.0,
+          "status": "-",
+          "flag": "-",
+          "phase": null
+        },
+        {
+          "date": "2025-10-30",
+          "value": 0.02,
+          "status": "-",
+          "flag": "-",
+          "phase": null
+        }
+      ]
+    },
+    "平均红细胞体积": {
+      "unit": "fL",
+      "ref": {
+        "lower": 82.0,
+        "upper": 100.0
+      },
+      "series": [
+        {
+          "date": "2025-08-06",
+          "value": 91.4,
+          "status": "-",
+          "flag": "-",
+          "phase": "首次化疗前"
+        },
+        {
+          "date": "2025-08-12",
+          "value": 90.1,
+          "status": "-",
+          "flag": "-",
+          "phase": "第1次化疗d5"
+        },
+        {
+          "date": "2025-08-28",
+          "value": 92.5,
+          "status": "-",
+          "flag": "-",
+          "phase": "第1次化疗d21"
+        },
+        {
+          "date": "2025-09-02",
+          "value": 93.5,
+          "status": "-",
+          "flag": "-",
+          "phase": "第2次化疗d5"
+        },
+        {
+          "date": "2025-09-18",
+          "value": 93.0,
+          "status": "-",
+          "flag": "-",
+          "phase": "第2次化疗d21"
+        },
+        {
+          "date": "2025-09-23",
+          "value": 93.0,
+          "status": "-",
+          "flag": "-",
+          "phase": "第3次化疗d5"
+        },
+        {
+          "date": "2025-10-09",
+          "value": 97.0,
+          "status": "-",
+          "flag": "-",
+          "phase": "第3次化疗d21"
+        },
+        {
+          "date": "2025-10-14",
+          "value": 98.0,
+          "status": "-",
+          "flag": "-",
+          "phase": "第4次化疗d5"
+        },
+        {
+          "date": "2025-10-24",
+          "value": 99.0,
+          "status": "-",
+          "flag": "-",
+          "phase": null
+        },
+        {
+          "date": "2025-10-30",
+          "value": 105.0,
+          "status": "↑",
+          "flag": "↑",
+          "phase": null
+        }
+      ]
+    },
+    "平均红细胞血红蛋白浓度": {
+      "unit": "g/L",
+      "ref": {
+        "lower": 316.0,
+        "upper": 354.0
+      },
+      "series": [
+        {
+          "date": "2025-10-24",
+          "value": 329.0,
+          "status": "-",
+          "flag": "-",
+          "phase": null
+        }
+      ]
+    },
+    "平均红细胞血红蛋白量": {
+      "unit": "pg",
+      "ref": {
+        "lower": 27.0,
+        "upper": 34.0
+      },
+      "series": [
+        {
+          "date": "2025-10-24",
+          "value": 32.4,
+          "status": "-",
+          "flag": "-",
+          "phase": null
+        }
+      ]
+    },
+    "平均血小板体积": {
+      "unit": "fL",
+      "ref": {
+        "lower": 9.0,
+        "upper": 13.0
+      },
+      "series": [
+        {
+          "date": "2025-08-06",
+          "value": 10.5,
+          "status": "-",
+          "flag": "-",
+          "phase": "首次化疗前"
+        },
+        {
+          "date": "2025-08-12",
+          "value": 11.6,
+          "status": "-",
+          "flag": "-",
+          "phase": "第1次化疗d5"
+        },
+        {
+          "date": "2025-08-28",
+          "value": 10.8,
+          "status": "-",
+          "flag": "-",
+          "phase": "第1次化疗d21"
+        },
+        {
+          "date": "2025-09-02",
+          "value": 11.1,
+          "status": "-",
+          "flag": "-",
+          "phase": "第2次化疗d5"
+        },
+        {
+          "date": "2025-09-18",
+          "value": 7.8,
+          "status": "↓",
+          "flag": "↓",
+          "phase": "第2次化疗d21"
+        },
+        {
+          "date": "2025-09-23",
+          "value": 8.3,
+          "status": "↓",
+          "flag": "↓",
+          "phase": "第3次化疗d5"
+        },
+        {
+          "date": "2025-10-09",
+          "value": 8.2,
+          "status": "↓",
+          "flag": "↓",
+          "phase": "第3次化疗d21"
+        },
+        {
+          "date": "2025-10-14",
+          "value": 8.5,
+          "status": "↓",
+          "flag": "↓",
+          "phase": "第4次化疗d5"
+        },
+        {
+          "date": "2025-10-30",
+          "value": 8.2,
+          "status": "↓",
+          "flag": "↓",
+          "phase": null
+        }
+      ]
+    },
+    "平均血红蛋白含量": {
+      "unit": "pg",
+      "ref": {
+        "lower": 27.0,
+        "upper": 34.0
+      },
+      "series": [
+        {
+          "date": "2025-08-06",
+          "value": 29.5,
+          "status": "-",
+          "flag": "-",
+          "phase": "首次化疗前"
+        },
+        {
+          "date": "2025-08-12",
+          "value": 30.1,
+          "status": "-",
+          "flag": "-",
+          "phase": "第1次化疗d5"
+        },
+        {
+          "date": "2025-08-28",
+          "value": 30.4,
+          "status": "-",
+          "flag": "-",
+          "phase": "第1次化疗d21"
+        },
+        {
+          "date": "2025-09-02",
+          "value": 30.5,
+          "status": "-",
+          "flag": "-",
+          "phase": "第2次化疗d5"
+        },
+        {
+          "date": "2025-09-18",
+          "value": 29.8,
+          "status": "-",
+          "flag": "-",
+          "phase": "第2次化疗d21"
+        },
+        {
+          "date": "2025-09-23",
+          "value": 30.4,
+          "status": "-",
+          "flag": "-",
+          "phase": "第3次化疗d5"
+        },
+        {
+          "date": "2025-10-09",
+          "value": 30.7,
+          "status": "-",
+          "flag": "-",
+          "phase": "第3次化疗d21"
+        },
+        {
+          "date": "2025-10-14",
+          "value": 31.9,
+          "status": "-",
+          "flag": "-",
+          "phase": "第4次化疗d5"
+        },
+        {
+          "date": "2025-10-30",
+          "value": 31.9,
+          "status": "-",
+          "flag": "-",
+          "phase": null
+        }
+      ]
+    },
+    "平均血红蛋白浓度": {
+      "unit": "g/L",
+      "ref": {
+        "lower": 316.0,
+        "upper": 354.0
+      },
+      "series": [
+        {
+          "date": "2025-08-06",
+          "value": 323.0,
+          "status": "-",
+          "flag": "-",
+          "phase": "首次化疗前"
+        },
+        {
+          "date": "2025-08-12",
+          "value": 334.0,
+          "status": "-",
+          "flag": "-",
+          "phase": "第1次化疗d5"
+        },
+        {
+          "date": "2025-08-28",
+          "value": 329.0,
+          "status": "-",
+          "flag": "-",
+          "phase": "第1次化疗d21"
+        },
+        {
+          "date": "2025-09-02",
+          "value": 327.0,
+          "status": "-",
+          "flag": "-",
+          "phase": "第2次化疗d5"
+        },
+        {
+          "date": "2025-09-18",
+          "value": 319.3,
+          "status": "-",
+          "flag": "-",
+          "phase": "第2次化疗d21"
+        },
+        {
+          "date": "2025-09-23",
+          "value": 328.0,
+          "status": "-",
+          "flag": "-",
+          "phase": "第3次化疗d5"
+        },
+        {
+          "date": "2025-10-09",
+          "value": 316.1,
+          "status": "-",
+          "flag": "-",
+          "phase": "第3次化疗d21"
+        },
+        {
+          "date": "2025-10-14",
+          "value": 327.0,
+          "status": "-",
+          "flag": "-",
+          "phase": "第4次化疗d5"
+        },
+        {
+          "date": "2025-10-30",
+          "value": 303.6,
+          "status": "↓",
+          "flag": "↓",
+          "phase": null
+        }
+      ]
+    },
+    "幼稚粒细胞": {
+      "unit": "10^3/UL",
+      "ref": {},
+      "series": [
+        {
+          "date": "2025-08-12",
+          "value": 3.49,
+          "status": "-",
+          "flag": "-",
+          "phase": "第1次化疗d5"
+        },
+        {
+          "date": "2025-08-28",
+          "value": 0.03,
+          "status": "-",
+          "flag": "-",
+          "phase": "第1次化疗d21"
+        },
+        {
+          "date": "2025-09-02",
+          "value": 2.14,
+          "status": "-",
+          "flag": "-",
+          "phase": "第2次化疗d5"
+        }
+      ]
+    },
+    "幼稚粒细胞百分比": {
+      "unit": "%",
+      "ref": {},
+      "series": [
+        {
+          "date": "2025-08-06",
+          "value": 0.1,
+          "status": "-",
+          "flag": "-",
+          "phase": "首次化疗前"
+        },
+        {
+          "date": "2025-08-12",
+          "value": 8.0,
+          "status": "-",
+          "flag": "-",
+          "phase": "第1次化疗d5"
+        },
+        {
+          "date": "2025-08-28",
+          "value": 0.6,
+          "status": "-",
+          "flag": "-",
+          "phase": "第1次化疗d21"
+        },
+        {
+          "date": "2025-09-02",
+          "value": 5.6,
+          "status": "-",
+          "flag": "-",
+          "phase": "第2次化疗d5"
+        }
+      ]
+    },
+    "异型淋巴细胞百分比": {
+      "unit": "%",
+      "ref": {
+        "lower": 0.0,
+        "upper": 2.0
+      },
+      "series": [
+        {
+          "date": "2025-10-24",
+          "value": 0.0,
+          "status": "-",
+          "flag": "-",
+          "phase": null
+        }
+      ]
+    },
+    "异型淋巴细胞绝对值": {
+      "unit": "10^9/L",
+      "ref": {
+        "lower": 0.0,
+        "upper": 0.2
+      },
+      "series": [
+        {
+          "date": "2025-10-24",
+          "value": 0.0,
+          "status": "-",
+          "flag": "-",
+          "phase": null
+        }
+      ]
+    },
+    "有核红细胞百分比": {
+      "unit": "%",
+      "ref": {},
+      "series": [
+        {
+          "date": "2025-08-06",
+          "value": 0.0,
+          "status": "-",
+          "flag": "-",
+          "phase": "首次化疗前"
+        },
+        {
+          "date": "2025-08-12",
+          "value": 0.0,
+          "status": "-",
+          "flag": "-",
+          "phase": "第1次化疗d5"
+        },
+        {
+          "date": "2025-08-28",
+          "value": 0.0,
+          "status": "-",
+          "flag": "-",
+          "phase": "第1次化疗d21"
+        },
+        {
+          "date": "2025-09-02",
+          "value": 0.1,
+          "status": "-",
+          "flag": "-",
+          "phase": "第2次化疗d5"
+        }
+      ]
+    },
+    "有核红细胞计数": {
+      "unit": "10^3/UL",
+      "ref": {},
+      "series": [
+        {
+          "date": "2025-08-12",
+          "value": 0.0,
+          "status": "-",
+          "flag": "-",
+          "phase": "第1次化疗d5"
+        },
+        {
+          "date": "2025-08-28",
+          "value": 0.0,
+          "status": "-",
+          "flag": "-",
+          "phase": "第1次化疗d21"
+        },
+        {
+          "date": "2025-09-02",
+          "value": 0.01,
+          "status": "-",
+          "flag": "-",
+          "phase": "第2次化疗d5"
+        }
+      ]
+    },
+    "淋巴细胞百分数": {
+      "unit": "%",
+      "ref": {
+        "lower": 20.0,
+        "upper": 50.0
+      },
+      "series": [
+        {
+          "date": "2025-08-06",
+          "value": 27.1,
+          "status": "-",
+          "flag": "-",
+          "phase": "首次化疗前"
+        },
+        {
+          "date": "2025-08-12",
+          "value": 6.6,
+          "status": "↓",
+          "flag": "↓",
+          "phase": "第1次化疗d5"
+        },
+        {
+          "date": "2025-08-28",
+          "value": 20.0,
+          "status": "-",
+          "flag": "-",
+          "phase": "第1次化疗d21"
+        },
+        {
+          "date": "2025-09-02",
+          "value": 4.1,
+          "status": "↓",
+          "flag": "↓",
+          "phase": "第2次化疗d5"
+        },
+        {
+          "date": "2025-09-18",
+          "value": 16.2,
+          "status": "↓",
+          "flag": "↓",
+          "phase": "第2次化疗d21"
+        },
+        {
+          "date": "2025-09-23",
+          "value": 4.7,
+          "status": "↓",
+          "flag": "↓",
+          "phase": "第3次化疗d5"
+        },
+        {
+          "date": "2025-10-09",
+          "value": 13.5,
+          "status": "↓",
+          "flag": "↓",
+          "phase": "第3次化疗d21"
+        },
+        {
+          "date": "2025-10-14",
+          "value": 8.0,
+          "status": "↓",
+          "flag": "↓",
+          "phase": "第4次化疗d5"
+        },
+        {
+          "date": "2025-10-24",
+          "value": 19.0,
+          "status": "↓",
+          "flag": "↓",
+          "phase": null
+        },
+        {
+          "date": "2025-10-30",
+          "value": 16.5,
+          "status": "↓",
+          "flag": "↓",
+          "phase": null
+        }
+      ]
+    },
+    "淋巴细胞绝对值": {
+      "unit": "10^9/L",
+      "ref": {
+        "lower": 1.1,
+        "upper": 3.2
+      },
+      "series": [
+        {
+          "date": "2025-10-24",
+          "value": 1.2,
+          "status": "-",
+          "flag": "-",
+          "phase": null
+        }
+      ]
+    },
+    "淋巴细胞计数": {
+      "unit": "10^9/L",
+      "ref": {
+        "lower": 1.1,
+        "upper": 3.2
+      },
+      "series": [
+        {
+          "date": "2025-08-06",
+          "value": 1.99,
+          "status": "-",
+          "flag": "-",
+          "phase": "首次化疗前"
+        },
+        {
+          "date": "2025-08-12",
+          "value": 1.2,
+          "status": "-",
+          "flag": "-",
+          "phase": "第1次化疗d5"
+        },
+        {
+          "date": "2025-08-28",
+          "value": 1.0,
+          "status": "↓",
+          "flag": "↓",
+          "phase": "第1次化疗d21"
+        },
+        {
+          "date": "2025-09-02",
+          "value": 0.8,
+          "status": "↓",
+          "flag": "↓",
+          "phase": "第2次化疗d5"
+        },
+        {
+          "date": "2025-09-18",
+          "value": 1.08,
+          "status": "↓",
+          "flag": "↓",
+          "phase": "第2次化疗d21"
+        },
+        {
+          "date": "2025-09-23",
+          "value": 1.05,
+          "status": "↓",
+          "flag": "↓",
+          "phase": "第3次化疗d5"
+        },
+        {
+          "date": "2025-10-09",
+          "value": 0.98,
+          "status": "↓",
+          "flag": "↓",
+          "phase": "第3次化疗d21"
+        },
+        {
+          "date": "2025-10-14",
+          "value": 1.12,
+          "status": "-",
+          "flag": "-",
+          "phase": "第4次化疗d5"
+        },
+        {
+          "date": "2025-10-30",
+          "value": 0.62,
+          "status": "↓",
+          "flag": "↓",
+          "phase": null
+        }
+      ]
+    },
+    "白细胞计数": {
+      "unit": "10^9/L",
+      "ref": {
+        "lower": 3.5,
+        "upper": 9.5
+      },
+      "series": [
+        {
+          "date": "2025-08-06",
+          "value": 7.4,
+          "status": "-",
+          "flag": "-",
+          "phase": "首次化疗前"
+        },
+        {
+          "date": "2025-08-12",
+          "value": 18.6,
+          "status": "↑",
+          "flag": "↑",
+          "phase": "第1次化疗d5"
+        },
+        {
+          "date": "2025-08-28",
+          "value": 4.8,
+          "status": "-",
+          "flag": "-",
+          "phase": "第1次化疗d21"
+        },
+        {
+          "date": "2025-09-02",
+          "value": 18.4,
+          "status": "↑",
+          "flag": "↑",
+          "phase": "第2次化疗d5"
+        },
+        {
+          "date": "2025-09-18",
+          "value": 6.69,
+          "status": "-",
+          "flag": "-",
+          "phase": "第2次化疗d21"
+        },
+        {
+          "date": "2025-09-23",
+          "value": 22.4,
+          "status": "↑",
+          "flag": "↑",
+          "phase": "第3次化疗d5"
+        },
+        {
+          "date": "2025-10-09",
+          "value": 7.28,
+          "status": "-",
+          "flag": "-",
+          "phase": "第3次化疗d21"
+        },
+        {
+          "date": "2025-10-14",
+          "value": 13.96,
+          "status": "↑",
+          "flag": "↑",
+          "phase": "第4次化疗d5"
+        },
+        {
+          "date": "2025-10-24",
+          "value": 6.3,
+          "status": "-",
+          "flag": "-",
+          "phase": null
+        },
+        {
+          "date": "2025-10-30",
+          "value": 3.76,
+          "status": "-",
+          "flag": "-",
+          "phase": null
+        }
+      ]
+    },
+    "红细胞": {
+      "unit": "10^12/L",
+      "ref": {
+        "lower": 3.8,
+        "upper": 5.1
+      },
+      "series": [
+        {
+          "date": "2025-08-06",
+          "value": 4.07,
+          "status": "-",
+          "flag": "-",
+          "phase": "首次化疗前"
+        },
+        {
+          "date": "2025-08-12",
+          "value": 3.92,
+          "status": "-",
+          "flag": "-",
+          "phase": "第1次化疗d5"
+        },
+        {
+          "date": "2025-08-28",
+          "value": 3.32,
+          "status": "↓",
+          "flag": "↓",
+          "phase": "第1次化疗d21"
+        },
+        {
+          "date": "2025-09-02",
+          "value": 3.21,
+          "status": "↓",
+          "flag": "↓",
+          "phase": "第2次化疗d5"
+        },
+        {
+          "date": "2025-09-18",
+          "value": 3.12,
+          "status": "↓",
+          "flag": "↓",
+          "phase": "第2次化疗d21"
+        },
+        {
+          "date": "2025-09-23",
+          "value": 3.48,
+          "status": "↓",
+          "flag": "↓",
+          "phase": "第3次化疗d5"
+        },
+        {
+          "date": "2025-10-09",
+          "value": 2.78,
+          "status": "↓",
+          "flag": "↓",
+          "phase": "第3次化疗d21"
+        },
+        {
+          "date": "2025-10-14",
+          "value": 2.69,
+          "status": "↓",
+          "flag": "↓",
+          "phase": "第4次化疗d5"
+        },
+        {
+          "date": "2025-10-30",
+          "value": 2.2,
+          "status": "↓",
+          "flag": "↓",
+          "phase": null
+        }
+      ]
+    },
+    "红细胞分布宽度CV": {
+      "unit": "%",
+      "ref": {
+        "lower": 11.0,
+        "upper": 16.0
+      },
+      "series": [
+        {
+          "date": "2025-10-24",
+          "value": 19.3,
+          "status": "↑",
+          "flag": "↑",
+          "phase": null
+        }
+      ]
+    },
+    "红细胞分布宽度SD": {
+      "unit": "fL",
+      "ref": {
+        "lower": 35.0,
+        "upper": 56.0
+      },
+      "series": [
+        {
+          "date": "2025-10-24",
+          "value": 67.5,
+          "status": "↑",
+          "flag": "↑",
+          "phase": null
+        }
+      ]
+    },
+    "红细胞分布宽度变异系数": {
+      "unit": "%",
+      "ref": {
+        "lower": 10.0,
+        "upper": 15.0
+      },
+      "series": [
+        {
+          "date": "2025-08-06",
+          "value": 13.6,
+          "status": "-",
+          "flag": "-",
+          "phase": "首次化疗前"
+        },
+        {
+          "date": "2025-08-12",
+          "value": 12.3,
+          "status": "-",
+          "flag": "-",
+          "phase": "第1次化疗d5"
+        },
+        {
+          "date": "2025-08-28",
+          "value": 13.1,
+          "status": "-",
+          "flag": "-",
+          "phase": "第1次化疗d21"
+        },
+        {
+          "date": "2025-09-02",
+          "value": 14.1,
+          "status": "-",
+          "flag": "-",
+          "phase": "第2次化疗d5"
+        },
+        {
+          "date": "2025-09-18",
+          "value": 12.7,
+          "status": "-",
+          "flag": "-",
+          "phase": "第2次化疗d21"
+        },
+        {
+          "date": "2025-09-23",
+          "value": 13.5,
+          "status": "-",
+          "flag": "-",
+          "phase": "第3次化疗d5"
+        },
+        {
+          "date": "2025-10-09",
+          "value": 13.8,
+          "status": "-",
+          "flag": "-",
+          "phase": "第3次化疗d21"
+        },
+        {
+          "date": "2025-10-14",
+          "value": 14.2,
+          "status": "-",
+          "flag": "-",
+          "phase": "第4次化疗d5"
+        },
+        {
+          "date": "2025-10-30",
+          "value": 19.0,
+          "status": "↑",
+          "flag": "↑",
+          "phase": null
+        }
+      ]
+    },
+    "红细胞分布宽度标准差": {
+      "unit": "fL",
+      "ref": {
+        "lower": 37.0,
+        "upper": 50.0
+      },
+      "series": [
+        {
+          "date": "2025-08-06",
+          "value": 44.4,
+          "status": "-",
+          "flag": "-",
+          "phase": "首次化疗前"
+        },
+        {
+          "date": "2025-08-12",
+          "value": 40.4,
+          "status": "-",
+          "flag": "-",
+          "phase": "第1次化疗d5"
+        },
+        {
+          "date": "2025-08-28",
+          "value": 40.6,
+          "status": "-",
+          "flag": "-",
+          "phase": "第1次化疗d21"
+        },
+        {
+          "date": "2025-09-02",
+          "value": 44.1,
+          "status": "-",
+          "flag": "-",
+          "phase": "第2次化疗d5"
+        }
+      ]
+    },
+    "红细胞压积": {
+      "unit": "%",
+      "ref": {
+        "lower": 35.0,
+        "upper": 45.0
+      },
+      "series": [
+        {
+          "date": "2025-08-06",
+          "value": 37.2,
+          "status": "-",
+          "flag": "-",
+          "phase": "首次化疗前"
+        },
+        {
+          "date": "2025-08-12",
+          "value": 35.3,
+          "status": "↓",
+          "flag": "-",
+          "phase": "第1次化疗d5"
+        },
+        {
+          "date": "2025-08-28",
+          "value": 30.7,
+          "status": "↓",
+          "flag": "↓",
+          "phase": "第1次化疗d21"
+        },
+        {
+          "date": "2025-09-02",
+          "value": 30.0,
+          "status": "↓",
+          "flag": "↓",
+          "phase": "第2次化疗d5"
+        },
+        {
+          "date": "2025-09-18",
+          "value": 29.1,
+          "status": "↓",
+          "flag": "↓",
+          "phase": "第2次化疗d21"
+        },
+        {
+          "date": "2025-09-23",
+          "value": 32.2,
+          "status": "↓",
+          "flag": "↓",
+          "phase": "第3次化疗d5"
+        },
+        {
+          "date": "2025-10-09",
+          "value": 26.9,
+          "status": "↓",
+          "flag": "↓",
+          "phase": "第3次化疗d21"
+        },
+        {
+          "date": "2025-10-14",
+          "value": 26.4,
+          "status": "↓",
+          "flag": "↓",
+          "phase": "第4次化疗d5"
+        },
+        {
+          "date": "2025-10-24",
+          "value": 25.2,
+          "status": "↓",
+          "flag": "↓",
+          "phase": null
+        },
+        {
+          "date": "2025-10-30",
+          "value": 23.1,
+          "status": "↓",
+          "flag": "↓",
+          "phase": null
+        }
+      ]
+    },
+    "红细胞计数": {
+      "unit": "10^12/L",
+      "ref": {
+        "lower": 3.8,
+        "upper": 5.1
+      },
+      "series": [
+        {
+          "date": "2025-10-24",
+          "value": 2.55,
+          "status": "↓",
+          "flag": "↓",
+          "phase": null
+        }
+      ]
+    },
+    "血小板体积分布宽度": {
+      "unit": "%",
+      "ref": {
+        "lower": 9.0,
+        "upper": 17.0
+      },
+      "series": [
+        {
+          "date": "2025-08-06",
+          "value": 12.8,
+          "status": "-",
+          "flag": "-",
+          "phase": "首次化疗前"
+        },
+        {
+          "date": "2025-08-12",
+          "value": 14.5,
+          "status": "-",
+          "flag": "-",
+          "phase": "第1次化疗d5"
+        },
+        {
+          "date": "2025-08-28",
+          "value": 11.7,
+          "status": "-",
+          "flag": "-",
+          "phase": "第1次化疗d21"
+        },
+        {
+          "date": "2025-09-02",
+          "value": 13.3,
+          "status": "-",
+          "flag": "-",
+          "phase": "第2次化疗d5"
+        },
+        {
+          "date": "2025-09-18",
+          "value": 14.0,
+          "status": "-",
+          "flag": "-",
+          "phase": "第2次化疗d21"
+        },
+        {
+          "date": "2025-09-23",
+          "value": 14.8,
+          "status": "-",
+          "flag": "-",
+          "phase": "第3次化疗d5"
+        },
+        {
+          "date": "2025-10-09",
+          "value": 16.0,
+          "status": "-",
+          "flag": "-",
+          "phase": "第3次化疗d21"
+        },
+        {
+          "date": "2025-10-14",
+          "value": 17.0,
+          "status": "-",
+          "flag": "-",
+          "phase": "第4次化疗d5"
+        },
+        {
+          "date": "2025-10-24",
+          "value": 9.6,
+          "status": "-",
+          "flag": "-",
+          "phase": null
+        },
+        {
+          "date": "2025-10-30",
+          "value": 16.8,
+          "status": "-",
+          "flag": "-",
+          "phase": null
+        }
+      ]
+    },
+    "血小板压积": {
+      "unit": "%",
+      "ref": {
+        "lower": 0.11,
+        "upper": 0.28
+      },
+      "series": [
+        {
+          "date": "2025-08-06",
+          "value": 0.24,
+          "status": "-",
+          "flag": "-",
+          "phase": "首次化疗前"
+        },
+        {
+          "date": "2025-08-12",
+          "value": 0.15,
+          "status": "-",
+          "flag": "-",
+          "phase": "第1次化疗d5"
+        },
+        {
+          "date": "2025-08-28",
+          "value": 0.18,
+          "status": "-",
+          "flag": "-",
+          "phase": "第1次化疗d21"
+        },
+        {
+          "date": "2025-09-02",
+          "value": 0.16,
+          "status": "-",
+          "flag": "-",
+          "phase": "第2次化疗d5"
+        },
+        {
+          "date": "2025-09-18",
+          "value": 0.09,
+          "status": "↓",
+          "flag": "↓",
+          "phase": "第2次化疗d21"
+        },
+        {
+          "date": "2025-09-23",
+          "value": 0.126,
+          "status": "-",
+          "flag": "-",
+          "phase": "第3次化疗d5"
+        },
+        {
+          "date": "2025-10-09",
+          "value": 0.064,
+          "status": "↓",
+          "flag": "↓",
+          "phase": "第3次化疗d21"
+        },
+        {
+          "date": "2025-10-14",
+          "value": 0.064,
+          "status": "↓",
+          "flag": "↓",
+          "phase": "第4次化疗d5"
+        },
+        {
+          "date": "2025-10-30",
+          "value": 0.05,
+          "status": "↓",
+          "flag": "↓",
+          "phase": null
+        }
+      ]
+    },
+    "血小板平均体积": {
+      "unit": "fL",
+      "ref": {
+        "lower": 6.0,
+        "upper": 12.0
+      },
+      "series": [
+        {
+          "date": "2025-10-24",
+          "value": 8.1,
+          "status": "-",
+          "flag": "-",
+          "phase": null
+        }
+      ]
+    },
+    "血小板比容": {
+      "unit": "%",
+      "ref": {
+        "lower": 0.1,
+        "upper": 0.3
+      },
+      "series": [
+        {
+          "date": "2025-10-24",
+          "value": 0.07,
+          "status": "↓",
+          "flag": "↓",
+          "phase": null
+        }
+      ]
+    },
+    "血小板计数": {
+      "unit": "10^9/L",
+      "ref": {
+        "lower": 125.0,
+        "upper": 350.0
+      },
+      "series": [
+        {
+          "date": "2025-08-06",
+          "value": 228.0,
+          "status": "-",
+          "flag": "-",
+          "phase": "首次化疗前"
+        },
+        {
+          "date": "2025-08-12",
+          "value": 132.0,
+          "status": "-",
+          "flag": "-",
+          "phase": "第1次化疗d5"
+        },
+        {
+          "date": "2025-08-28",
+          "value": 166.0,
+          "status": "-",
+          "flag": "-",
+          "phase": "第1次化疗d21"
+        },
+        {
+          "date": "2025-09-02",
+          "value": 145.0,
+          "status": "-",
+          "flag": "-",
+          "phase": "第2次化疗d5"
+        },
+        {
+          "date": "2025-09-18",
+          "value": 115.0,
+          "status": "↓",
+          "flag": "↓",
+          "phase": "第2次化疗d21"
+        },
+        {
+          "date": "2025-09-23",
+          "value": 152.0,
+          "status": "-",
+          "flag": "-",
+          "phase": "第3次化疗d5"
+        },
+        {
+          "date": "2025-10-09",
+          "value": 78.0,
+          "status": "↓",
+          "flag": "↓",
+          "phase": "第3次化疗d21"
+        },
+        {
+          "date": "2025-10-14",
+          "value": 75.0,
+          "status": "↓",
+          "flag": "↓",
+          "phase": "第4次化疗d5"
+        },
+        {
+          "date": "2025-10-24",
+          "value": 81.0,
+          "status": "↓",
+          "flag": "↓",
+          "phase": null
+        },
+        {
+          "date": "2025-10-30",
+          "value": 61.0,
+          "status": "↓",
+          "flag": "↓",
+          "phase": null
+        }
+      ]
+    },
+    "血红蛋白浓度": {
+      "unit": "g/L",
+      "ref": {
+        "lower": 115.0,
+        "upper": 150.0
+      },
+      "series": [
+        {
+          "date": "2025-08-06",
+          "value": 120.0,
+          "status": "-",
+          "flag": "-",
+          "phase": "首次化疗前"
+        },
+        {
+          "date": "2025-08-12",
+          "value": 118.0,
+          "status": "-",
+          "flag": "-",
+          "phase": "第1次化疗d5"
+        },
+        {
+          "date": "2025-08-28",
+          "value": 101.0,
+          "status": "↓",
+          "flag": "↓",
+          "phase": "第1次化疗d21"
+        },
+        {
+          "date": "2025-09-02",
+          "value": 98.0,
+          "status": "↓",
+          "flag": "↓",
+          "phase": "第2次化疗d5"
+        },
+        {
+          "date": "2025-09-18",
+          "value": 93.0,
+          "status": "↓",
+          "flag": "↓",
+          "phase": "第2次化疗d21"
+        },
+        {
+          "date": "2025-09-23",
+          "value": 105.7,
+          "status": "↓",
+          "flag": "↓",
+          "phase": "第3次化疗d5"
+        },
+        {
+          "date": "2025-10-09",
+          "value": 85.2,
+          "status": "↓",
+          "flag": "↓",
+          "phase": "第3次化疗d21"
+        },
+        {
+          "date": "2025-10-14",
+          "value": 85.5,
+          "status": "↓",
+          "flag": "↓",
+          "phase": "第4次化疗d5"
+        },
+        {
+          "date": "2025-10-24",
+          "value": 83.0,
+          "status": "↓",
+          "flag": "↓",
+          "phase": null
+        },
+        {
+          "date": "2025-10-30",
+          "value": 70.0,
+          "status": "↓",
+          "flag": "↓",
+          "phase": null
+        }
+      ]
+    }
+  }
+}
