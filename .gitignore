@@ -1,0 +1,11 @@
+.venv/
+__pycache__/
+.DS_Store
+*.pyc
+db/zhl.sqlite3
+deploy_scf_backend.zip
+origin_ocr_csv_files/
+*.log
+node_modules/
+github_api.csv
+.github/workflows/github_PAT.csv
