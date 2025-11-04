@@ -12,21 +12,28 @@ OWNER = os.environ.get('GITHUB_OWNER', 'EricZhou-math')
 REPO = os.environ.get('GITHUB_REPO', 'ZHL')
 BRANCH = os.environ.get('GITHUB_BRANCH', 'main')
 
-EXCLUDES = {
-    '.git', '.venv', '__pycache__', 'node_modules', 'db/zhl.sqlite3',
-    '.DS_Store', '*.pyc', 'origin_ocr_csv_files', 'dist/scf.zip',
-    '.github/workflows/github_PAT.csv'
+EXACT_EXCLUDES = {
+    'db/zhl.sqlite3',
+    'deploy_scf_backend.zip',
+    '.DS_Store',
+    'dist/publish.log'
 }
+DIR_EXCLUDES = {
+    '.git', '.venv', '__pycache__', 'node_modules', 'origin_ocr_csv_files'
+}
+SUFFIX_EXCLUDES = {'.pyc'}
 
 def should_exclude(p: Path) -> bool:
     rel = p.relative_to(ROOT).as_posix()
-    parts = rel.split('/')
-    for part in parts:
-        if part in EXCLUDES:
+    if rel in EXACT_EXCLUDES:
+        return True
+    # directory excludes
+    for d in DIR_EXCLUDES:
+        if rel.startswith(d + '/'):
             return True
-    # glob-like simple endings
-    for pat in EXCLUDES:
-        if pat.startswith('*.') and rel.endswith(pat[1:]):
+    # suffix excludes
+    for s in SUFFIX_EXCLUDES:
+        if rel.endswith(s):
             return True
     return False
 
@@ -104,6 +111,23 @@ def upload_file(token, rel_path, message):
         print(f'失败({status}): {rel_path}')
         return False
 
+def delete_file(token, rel_path, message):
+    sha = get_file_sha(token, rel_path)
+    if not sha:
+        return False
+    url = f'https://api.github.com/repos/{OWNER}/{REPO}/contents/{parse.quote(rel_path)}'
+    status, content = api_request('DELETE', url, token, {
+        'message': message,
+        'sha': sha,
+        'branch': BRANCH
+    })
+    if status == 200:
+        print(f'删除: {rel_path}')
+        return True
+    else:
+        print(f'删除失败({status}): {rel_path}')
+        return False
+
 def main():
     if not CSV.exists():
         print('缺少 PAT 文件: .github/workflows/github_PAT.csv', file=sys.stderr)
@@ -120,6 +144,9 @@ def main():
             if ok:
                 uploaded += 1
     print(f'完成上传 {uploaded} 个文件')
+    # 清理不应提交的文件（与 .gitignore 保持一致）
+    delete_file(token, 'db/zhl.sqlite3', 'Remove db file (ignore)')
+    delete_file(token, 'dist/publish.log', 'Remove local log')
     print('如已推送到 main，GitHub Pages 将自动部署 docs/')
 
 if __name__ == '__main__':
