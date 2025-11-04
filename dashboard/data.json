@@ -11,7 +11,8 @@
     "2025-10-09",
     "2025-10-14",
     "2025-10-24",
-    "2025-10-30"
+    "2025-10-30",
+    "2025-11-4 8:44:25"
   ],
   "indicators": {
     "不典型淋巴细胞百分比": {
@@ -52,6 +53,13 @@
         {
           "date": "2025-10-30",
           "value": 0.3,
+          "status": "-",
+          "flag": "-",
+          "phase": null
+        },
+        {
+          "date": "2025-11-4 8:44:25",
+          "value": 0.1,
           "status": "-",
           "flag": "-",
           "phase": null
@@ -96,6 +104,13 @@
         {
           "date": "2025-10-30",
           "value": 0.02,
+          "status": "-",
+          "flag": "-",
+          "phase": null
+        },
+        {
+          "date": "2025-11-4 8:44:25",
+          "value": 0.01,
           "status": "-",
           "flag": "-",
           "phase": null
@@ -175,6 +190,13 @@
         {
           "date": "2025-10-30",
           "value": 74.3,
+          "status": "-",
+          "flag": "-",
+          "phase": null
+        },
+        {
+          "date": "2025-11-4 8:44:25",
+          "value": 53.2,
           "status": "-",
           "flag": "-",
           "phase": null
@@ -261,10 +283,24 @@
           "phase": "第4次化疗d5"
         },
         {
+          "date": "2025-10-24",
+          "value": 4.83,
+          "status": "-",
+          "flag": "-",
+          "phase": null
+        },
+        {
           "date": "2025-10-30",
           "value": 2.79,
           "status": "-",
           "flag": "-",
+          "phase": null
+        },
+        {
+          "date": "2025-11-4 8:44:25",
+          "value": 0.96,
+          "status": "↓",
+          "flag": "↓",
           "phase": null
         }
       ]
@@ -342,6 +378,13 @@
         {
           "date": "2025-10-30",
           "value": 7.9,
+          "status": "-",
+          "flag": "-",
+          "phase": null
+        },
+        {
+          "date": "2025-11-4 8:44:25",
+          "value": 3.5,
           "status": "-",
           "flag": "-",
           "phase": null
@@ -433,6 +476,13 @@
           "status": "-",
           "flag": "-",
           "phase": null
+        },
+        {
+          "date": "2025-11-4 8:44:25",
+          "value": 0.06,
+          "status": "↓",
+          "flag": "↓",
+          "phase": null
         }
       ]
     },
@@ -509,6 +559,13 @@
         {
           "date": "2025-10-30",
           "value": 0.4,
+          "status": "-",
+          "flag": "-",
+          "phase": null
+        },
+        {
+          "date": "2025-11-4 8:44:25",
+          "value": 0.5,
           "status": "-",
           "flag": "-",
           "phase": null
@@ -600,6 +657,13 @@
           "status": "-",
           "flag": "-",
           "phase": null
+        },
+        {
+          "date": "2025-11-4 8:44:25",
+          "value": 0.0,
+          "status": "-",
+          "flag": "-",
+          "phase": null
         }
       ]
     },
@@ -676,6 +740,13 @@
         {
           "date": "2025-10-30",
           "value": 0.9,
+          "status": "-",
+          "flag": "-",
+          "phase": null
+        },
+        {
+          "date": "2025-11-4 8:44:25",
+          "value": 1.2,
           "status": "-",
           "flag": "-",
           "phase": null
@@ -764,6 +835,13 @@
         {
           "date": "2025-10-30",
           "value": 0.03,
+          "status": "-",
+          "flag": "-",
+          "phase": null
+        },
+        {
+          "date": "2025-11-4 8:44:25",
+          "value": 0.02,
           "status": "-",
           "flag": "-",
           "phase": null
@@ -862,6 +940,13 @@
           "status": "-",
           "flag": "-",
           "phase": null
+        },
+        {
+          "date": "2025-11-4 8:44:25",
+          "value": 0.7,
+          "status": "-",
+          "flag": "-",
+          "phase": null
         }
       ]
     },
@@ -910,6 +995,13 @@
         {
           "date": "2025-10-30",
           "value": 0.02,
+          "status": "-",
+          "flag": "-",
+          "phase": null
+        },
+        {
+          "date": "2025-11-4 8:44:25",
+          "value": 0.01,
           "status": "-",
           "flag": "-",
           "phase": null
@@ -991,6 +1083,29 @@
           "value": 105.0,
           "status": "↑",
           "flag": "↑",
+          "phase": null
+        },
+        {
+          "date": "2025-11-4 8:44:25",
+          "value": 103.0,
+          "status": "↑",
+          "flag": "↑",
+          "phase": null
+        }
+      ]
+    },
+    "平均红细胞血红蛋白含量": {
+      "unit": "pg",
+      "ref": {
+        "lower": 27.0,
+        "upper": 34.0
+      },
+      "series": [
+        {
+          "date": "2025-10-24",
+          "value": 32.4,
+          "status": "-",
+          "flag": "-",
           "phase": null
         }
       ]
@@ -1096,6 +1211,13 @@
           "status": "↓",
           "flag": "↓",
           "phase": null
+        },
+        {
+          "date": "2025-11-4 8:44:25",
+          "value": 9.1,
+          "status": "-",
+          "flag": "-",
+          "phase": null
         }
       ]
     },
@@ -1165,6 +1287,13 @@
         {
           "date": "2025-10-30",
           "value": 31.9,
+          "status": "-",
+          "flag": "-",
+          "phase": null
+        },
+        {
+          "date": "2025-11-4 8:44:25",
+          "value": 33.0,
           "status": "-",
           "flag": "-",
           "phase": null
@@ -1239,6 +1368,13 @@
           "value": 303.6,
           "status": "↓",
           "flag": "↓",
+          "phase": null
+        },
+        {
+          "date": "2025-11-4 8:44:25",
+          "value": 321.3,
+          "status": "-",
+          "flag": "-",
           "phase": null
         }
       ]
@@ -1473,6 +1609,13 @@
           "status": "↓",
           "flag": "↓",
           "phase": null
+        },
+        {
+          "date": "2025-11-4 8:44:25",
+          "value": 41.6,
+          "status": "-",
+          "flag": "-",
+          "phase": null
         }
       ]
     },
@@ -1561,6 +1704,13 @@
           "status": "↓",
           "flag": "↓",
           "phase": null
+        },
+        {
+          "date": "2025-11-4 8:44:25",
+          "value": 0.75,
+          "status": "↓",
+          "flag": "↓",
+          "phase": null
         }
       ]
     },
@@ -1640,6 +1790,13 @@
           "status": "-",
           "flag": "-",
           "phase": null
+        },
+        {
+          "date": "2025-11-4 8:44:25",
+          "value": 1.81,
+          "status": "↓",
+          "flag": "↓",
+          "phase": null
         }
       ]
     },
@@ -1708,6 +1865,13 @@
         },
         {
           "date": "2025-10-30",
+          "value": 2.2,
+          "status": "↓",
+          "flag": "↓",
+          "phase": null
+        },
+        {
+          "date": "2025-11-4 8:44:25",
           "value": 2.2,
           "status": "↓",
           "flag": "↓",
@@ -1813,6 +1977,13 @@
         {
           "date": "2025-10-30",
           "value": 19.0,
+          "status": "↑",
+          "flag": "↑",
+          "phase": null
+        },
+        {
+          "date": "2025-11-4 8:44:25",
+          "value": 18.3,
           "status": "↑",
           "flag": "↑",
           "phase": null
@@ -1932,6 +2103,13 @@
           "status": "↓",
           "flag": "↓",
           "phase": null
+        },
+        {
+          "date": "2025-11-4 8:44:25",
+          "value": 22.6,
+          "status": "↓",
+          "flag": "↓",
+          "phase": null
         }
       ]
     },
@@ -2030,6 +2208,92 @@
         }
       ]
     },
+    "血小板分布宽度": {
+      "unit": "%",
+      "ref": {
+        "lower": 9.0,
+        "upper": 17.0
+      },
+      "series": [
+        {
+          "date": "2025-08-06",
+          "value": 12.8,
+          "status": "-",
+          "flag": "-",
+          "phase": "首次化疗前"
+        },
+        {
+          "date": "2025-08-12",
+          "value": 14.5,
+          "status": "-",
+          "flag": "-",
+          "phase": "第1次化疗d5"
+        },
+        {
+          "date": "2025-08-28",
+          "value": 11.7,
+          "status": "-",
+          "flag": "-",
+          "phase": "第1次化疗d21"
+        },
+        {
+          "date": "2025-09-02",
+          "value": 13.3,
+          "status": "-",
+          "flag": "-",
+          "phase": "第2次化疗d5"
+        },
+        {
+          "date": "2025-09-18",
+          "value": 14.0,
+          "status": "-",
+          "flag": "-",
+          "phase": "第2次化疗d21"
+        },
+        {
+          "date": "2025-09-23",
+          "value": 14.8,
+          "status": "-",
+          "flag": "-",
+          "phase": "第3次化疗d5"
+        },
+        {
+          "date": "2025-10-09",
+          "value": 16.0,
+          "status": "-",
+          "flag": "-",
+          "phase": "第3次化疗d21"
+        },
+        {
+          "date": "2025-10-14",
+          "value": 17.0,
+          "status": "-",
+          "flag": "-",
+          "phase": "第4次化疗d5"
+        },
+        {
+          "date": "2025-10-24",
+          "value": 9.6,
+          "status": "-",
+          "flag": "-",
+          "phase": null
+        },
+        {
+          "date": "2025-10-30",
+          "value": 16.8,
+          "status": "-",
+          "flag": "-",
+          "phase": null
+        },
+        {
+          "date": "2025-11-4 8:44:25",
+          "value": 18.3,
+          "status": "↑",
+          "flag": "↑",
+          "phase": null
+        }
+      ]
+    },
     "血小板压积": {
       "unit": "%",
       "ref": {
@@ -2096,6 +2360,13 @@
         {
           "date": "2025-10-30",
           "value": 0.05,
+          "status": "↓",
+          "flag": "↓",
+          "phase": null
+        },
+        {
+          "date": "2025-11-4 8:44:25",
+          "value": 0.09,
           "status": "↓",
           "flag": "↓",
           "phase": null
@@ -2207,6 +2478,99 @@
         {
           "date": "2025-10-30",
           "value": 61.0,
+          "status": "↓",
+          "flag": "↓",
+          "phase": null
+        },
+        {
+          "date": "2025-11-4 8:44:25",
+          "value": 99.0,
+          "status": "↓",
+          "flag": "↓",
+          "phase": null
+        }
+      ]
+    },
+    "血红蛋白": {
+      "unit": "g/L",
+      "ref": {
+        "lower": 115.0,
+        "upper": 150.0
+      },
+      "series": [
+        {
+          "date": "2025-08-06",
+          "value": 120.0,
+          "status": "-",
+          "flag": "-",
+          "phase": "首次化疗前"
+        },
+        {
+          "date": "2025-08-12",
+          "value": 118.0,
+          "status": "-",
+          "flag": "-",
+          "phase": "第1次化疗d5"
+        },
+        {
+          "date": "2025-08-28",
+          "value": 101.0,
+          "status": "↓",
+          "flag": "↓",
+          "phase": "第1次化疗d21"
+        },
+        {
+          "date": "2025-09-02",
+          "value": 98.0,
+          "status": "↓",
+          "flag": "↓",
+          "phase": "第2次化疗d5"
+        },
+        {
+          "date": "2025-09-18",
+          "value": 93.0,
+          "status": "↓",
+          "flag": "↓",
+          "phase": "第2次化疗d21"
+        },
+        {
+          "date": "2025-09-23",
+          "value": 105.7,
+          "status": "↓",
+          "flag": "↓",
+          "phase": "第3次化疗d5"
+        },
+        {
+          "date": "2025-10-09",
+          "value": 85.2,
+          "status": "↓",
+          "flag": "↓",
+          "phase": "第3次化疗d21"
+        },
+        {
+          "date": "2025-10-14",
+          "value": 85.5,
+          "status": "↓",
+          "flag": "↓",
+          "phase": "第4次化疗d5"
+        },
+        {
+          "date": "2025-10-24",
+          "value": 83.0,
+          "status": "↓",
+          "flag": "↓",
+          "phase": null
+        },
+        {
+          "date": "2025-10-30",
+          "value": 70.0,
+          "status": "↓",
+          "flag": "↓",
+          "phase": null
+        },
+        {
+          "date": "2025-11-4 8:44:25",
+          "value": 72.5,
           "status": "↓",
           "flag": "↓",
           "phase": null
