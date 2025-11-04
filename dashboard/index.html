@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>化疗周期血常规仪表盘</title>
+  <link rel="stylesheet" href="./styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+  <script src="./api_base.js"></script>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <h1>化疗周期血常规仪表盘</h1>
+      <div class="controls">
+        <label>
+          起始化疗次（第）：
+          <input id="startCycle" type="number" min="1" value="1" />
+        </label>
+        <label>
+          结束化疗次（第）：
+          <input id="endCycle" type="number" min="1" value="1" />
+        </label>
+        <label class="checkbox">
+          <input id="showTrend" type="checkbox" /> 显示趋势拟合线
+        </label>
+      </div>
+    </header>
+
+    <main>
+      <section class="core-section">
+        <h2>核心指标</h2>
+        <div id="coreCharts" class="charts"></div>
+      </section>
+
+      <section class="extend-section">
+        <div class="collapse" id="extendCollapse">
+          <div class="collapse-header" role="button" aria-expanded="false">扩展指标（勾选可多选）</div>
+          <div class="collapse-content">
+            <div id="indicatorPanel" class="indicator-panel"></div>
+            <div id="chartsContainer" class="charts"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="table-section">
+        <h2>总览表（指标为行，检查日期为列）</h2>
+        <div id="pivotTable" class="table-wrapper"></div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="legend-note">
+        异常着色：<span class="dot up"></span> 高于上限(↑) <span class="dot down"></span> 低于下限(↓) <span class="dot normal"></span> 正常(-)
+      </div>
+    </footer>
+  </div>
+
+  <script src="./app.js"></script>
+</body>
+</html>
