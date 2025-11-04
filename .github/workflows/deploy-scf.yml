@@ -1,0 +1,36 @@
+name: Deploy SCF Backend
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'scripts/server_scf.py'
+      - 'scripts/build_scf_zip.py'
+      - 'scripts/deploy_scf.py'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install TencentCloud SDK
+        run: pip install tencentcloud-sdk-python
+
+      - name: Build SCF zip
+        run: python scripts/build_scf_zip.py
+
+      - name: Deploy to SCF
+        env:
+          TENCENT_SECRET_ID: ${{ secrets.TENCENT_SECRET_ID }}
+          TENCENT_SECRET_KEY: ${{ secrets.TENCENT_SECRET_KEY }}
+          TENCENT_REGION: ${{ secrets.TENCENT_REGION }}
+          SCF_FUNCTION_NAME: ${{ secrets.SCF_FUNCTION_NAME }}
+          SCF_NAMESPACE: ${{ secrets.SCF_NAMESPACE }}
+        run: python scripts/deploy_scf.py
