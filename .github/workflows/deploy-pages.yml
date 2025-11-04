@@ -18,12 +18,25 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Prepare static site (merge docs + dashboard)
+        shell: bash
+        run: |
+          set -e
+          mkdir -p site
+          cp -R docs/* site/
+          mkdir -p site/dashboard
+          cp -R dashboard/* site/dashboard/
+          # Override API base for Pages (no backend)
+          echo "// GitHub Pages: no backend" > site/api_base.js || true
+          echo "window.__API_BASE__ = ''" >> site/api_base.js || true
+          echo "// GitHub Pages: no backend" > site/dashboard/api_base.js || true
+          echo "window.__API_BASE__ = ''" >> site/dashboard/api_base.js || true
       - name: Setup Pages
         uses: actions/configure-pages@v4
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: docs
+          path: site
   deploy:
     environment:
       name: github-pages
