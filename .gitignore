@@ -9,3 +9,5 @@ origin_ocr_csv_files/
 node_modules/
 github_api.csv
 .github/workflows/github_PAT.csv
+# local secrets (do NOT commit)
+.secrets/
