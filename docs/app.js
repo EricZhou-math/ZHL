@@ -37,6 +37,13 @@
 
   const NAME_SYNONYMS = {
     '中性粒细胞绝对值': '中性粒细胞计数',
+    '淋巴细胞绝对值': '淋巴细胞计数',
+    '单核细胞绝对值': '单核细胞计数',
+    '嗜酸性粒细胞绝对值': '嗜酸性粒细胞计数',
+    '嗜碱性粒细胞绝对值': '嗜碱性粒细胞计数',
+    '有核红细胞绝对值': '有核红细胞计数',
+    '红细胞计数': '红细胞',
+    '红细胞数': '红细胞',
     '血红蛋白': '血红蛋白浓度'
   };
   const canonicalName = (name) => NAME_SYNONYMS[name] || name;
@@ -537,6 +544,19 @@
       trh.appendChild(th);
     });
     thead.appendChild(trh);
+
+    // 新增第二行表头：备注每个日期对应的化疗周期
+    const trh2 = document.createElement('tr');
+    const phaseHeader = document.createElement('th');
+    phaseHeader.textContent = '所属化疗周期';
+    phaseHeader.setAttribute('colspan', '2');
+    trh2.appendChild(phaseHeader);
+    data.dates.forEach((dt) => {
+      const th2 = document.createElement('th');
+      th2.textContent = computePhaseLabel(dt);
+      trh2.appendChild(th2);
+    });
+    thead.appendChild(trh2);
 
     const tbody = document.createElement('tbody');
     selectedInds.forEach((name) => {
