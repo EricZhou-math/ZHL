@@ -1,2 +1,2 @@
-// 自动生成：开发态使用本地后端
-window.__API_BASE__ = 'http://127.0.0.1:5001';
+// GitHub Pages: 无后端，前端回退到静态 data.json
+window.__API_BASE__ = '';
