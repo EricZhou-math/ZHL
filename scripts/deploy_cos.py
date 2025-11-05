@@ -25,6 +25,16 @@ except Exception:
 BASE = Path(__file__).resolve().parent.parent
 DOCS_DIR = BASE / 'docs'
 
+# 尝试读取本地机密文件 .secrets/cos.env 并注入环境变量
+try:
+    import sys as _sys
+    _sys.path.insert(0, str(Path(__file__).resolve().parent))
+    import cos_secrets as _cos
+    _cfg = _cos.load_cos_env()
+    _cos.export_to_environ(_cfg, overwrite=False)
+except Exception:
+    pass
+
 SID = os.environ.get('COS_SECRET_ID')
 SKEY = os.environ.get('COS_SECRET_KEY')
 REGION = os.environ.get('COS_REGION')
@@ -69,15 +79,33 @@ def enable_static_website():
 def upload_file(local: Path):
     rel = local.relative_to(DOCS_DIR).as_posix()
     key = PREFIX + rel
-    ct = mimetypes.guess_type(local.name)[0] or 'application/octet-stream'
+    # 优先使用显式的类型映射，避免浏览器将文件下载而不是渲染
+    ext = local.suffix.lower()
+    explicit_map = {
+        '.html': 'text/html; charset=utf-8',
+        '.htm': 'text/html; charset=utf-8',
+        '.css': 'text/css; charset=utf-8',
+        '.js': 'application/javascript; charset=utf-8',
+        '.json': 'application/json; charset=utf-8',
+        '.svg': 'image/svg+xml',
+        '.png': 'image/png',
+        '.jpg': 'image/jpeg',
+        '.jpeg': 'image/jpeg',
+        '.gif': 'image/gif',
+        '.webp': 'image/webp'
+    }
+    ct = explicit_map.get(ext) or mimetypes.guess_type(local.name)[0] or 'application/octet-stream'
     with open(local, 'rb') as f:
         data = f.read()
+    # 为避免被网站端强制下载，显式设置为 inline
     client.put_object(
         Bucket=BUCKET,
         Body=data,
         Key=key,
         ACL='public-read',
-        ContentType=ct
+        ContentType=ct,
+        CacheControl='no-cache',
+        ContentDisposition='inline'
     )
     print('Uploaded:', key)
 
