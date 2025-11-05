@@ -4,7 +4,26 @@ from pathlib import Path
 
 BASE = Path(__file__).resolve().parent.parent
 DB_PATH = BASE / 'db' / 'zhl.sqlite3'
-OUT_JSON = BASE / 'dashboard' / 'data.json'
+OUT_JSON_DASH = BASE / 'dashboard' / 'data.json'
+OUT_JSON_DOCS = BASE / 'docs' / 'data.json'
+
+# 指标同义词归并：将“绝对值/绝对数”归整到“计数”
+NAME_SYNONYMS = {
+    '中性粒细胞绝对值': '中性粒细胞计数',
+    '淋巴细胞绝对值': '淋巴细胞计数',
+    '单核细胞绝对值': '单核细胞计数',
+    '嗜酸性粒细胞绝对值': '嗜酸性粒细胞计数',
+    '嗜碱性粒细胞绝对值': '嗜碱性粒细胞计数',
+    '有核红细胞绝对值': '有核红细胞计数',
+    # RBC 归并到“红细胞”
+    'rbc': '红细胞',
+    '红细胞数': '红细胞',
+    '红细胞计数': '红细胞',
+}
+
+def canonical_name(name: str) -> str:
+    name = (name or '').strip()
+    return NAME_SYNONYMS.get(name, name)
 
 def export_payload() -> dict:
     conn = sqlite3.connect(DB_PATH)
@@ -24,6 +43,7 @@ def export_payload() -> dict:
         for ind in inds:
             ind_id = ind['id']
             name = ind['name']
+            canon = canonical_name(name)
             unit = ind['unit'] or ''
             ref = {}
             if ind['ref_lower'] is not None or ind['ref_upper'] is not None:
@@ -72,12 +92,43 @@ def export_payload() -> dict:
                     if auto_status:
                         s['status'] = auto_status
                 series.append(s)
-
-            indicators[name] = {
-                'unit': unit,
-                'ref': ref,
-                'series': series
-            }
+            # 合并到 canonical 指标名（避免同义词重复导致数据分散）
+            if canon not in indicators:
+                indicators[canon] = {
+                    'unit': unit,
+                    'ref': ref,
+                    'series': series
+                }
+            else:
+                # 单位：优先已有，否则用当前
+                if not indicators[canon].get('unit') and unit:
+                    indicators[canon]['unit'] = unit
+                # 参考范围：选择更完整（同时具备上下限）的那一个
+                existing_ref = indicators[canon].get('ref') or {}
+                def is_ref_complete(r):
+                    return isinstance(r, dict) and (r.get('lower') is not None) and (r.get('upper') is not None)
+                if not is_ref_complete(existing_ref) and is_ref_complete(ref):
+                    indicators[canon]['ref'] = ref
+                # series 合并：按日期取并集，优先保留数值型与带有异常标志的点
+                by_date = {pt['date']: pt for pt in indicators[canon].get('series', [])}
+                for pt in series:
+                    ex = by_date.get(pt['date'])
+                    if not ex:
+                        by_date[pt['date']] = pt
+                    else:
+                        e_num = isinstance(ex.get('value'), (int, float))
+                        s_num = isinstance(pt.get('value'), (int, float))
+                        choose_src = False
+                        if s_num and not e_num:
+                            choose_src = True
+                        elif s_num and e_num:
+                            e_score = 1 if (ex.get('flag') in {'↑', '↓'}) else 0
+                            s_score = 1 if (pt.get('flag') in {'↑', '↓'}) else 0
+                            if s_score >= e_score:
+                                choose_src = True
+                        if choose_src:
+                            by_date[pt['date']] = pt
+                indicators[canon]['series'] = [by_date[d] for d in sorted(by_date.keys())]
 
         payload = {
             'start_date': meta.get('start_date'),
@@ -91,10 +142,16 @@ def export_payload() -> dict:
 
 def export_to_json():
     payload = export_payload()
-    OUT_JSON.parent.mkdir(parents=True, exist_ok=True)
-    with open(OUT_JSON, 'w', encoding='utf-8') as f:
+    # 写入 dashboard/data.json
+    OUT_JSON_DASH.parent.mkdir(parents=True, exist_ok=True)
+    with open(OUT_JSON_DASH, 'w', encoding='utf-8') as f:
         json.dump(payload, f, ensure_ascii=False, indent=2)
-    print(f'Exported to {OUT_JSON}')
+    print(f'Exported to {OUT_JSON_DASH}')
+    # 同步写入 docs/data.json 以便静态预览无需后端
+    OUT_JSON_DOCS.parent.mkdir(parents=True, exist_ok=True)
+    with open(OUT_JSON_DOCS, 'w', encoding='utf-8') as f:
+        json.dump(payload, f, ensure_ascii=False, indent=2)
+    print(f'Exported to {OUT_JSON_DOCS}')
 
 if __name__ == '__main__':
     export_to_json()
