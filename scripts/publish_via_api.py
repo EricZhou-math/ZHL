@@ -135,14 +135,24 @@ def main():
     user, token = read_csv_first_line(CSV)
     print(f'发布到 https://github.com/{OWNER}/{REPO} 分支 {BRANCH}')
     ensure_repo(token)
+    targets = []
+    if len(sys.argv) > 1:
+        for arg in sys.argv[1:]:
+            path = (ROOT / arg).resolve()
+            if path.exists() and path.is_file():
+                targets.append(path)
+            else:
+                print(f'跳过不存在文件: {arg}')
+    else:
+        targets = [p for p in ROOT.rglob('*') if p.is_file() and not should_exclude(p)]
+
     uploaded = 0
-    for p in ROOT.rglob('*'):
-        if p.is_file() and not should_exclude(p):
-            rel = p.relative_to(ROOT)
-            msg = f'Publish {rel.as_posix()} (via API)'
-            ok = upload_file(token, rel, msg)
-            if ok:
-                uploaded += 1
+    for p in targets:
+        rel = p.relative_to(ROOT)
+        msg = f'Publish {rel.as_posix()} (via API)'
+        ok = upload_file(token, rel, msg)
+        if ok:
+            uploaded += 1
     print(f'完成上传 {uploaded} 个文件')
     # 清理不应提交的文件（与 .gitignore 保持一致）
     delete_file(token, 'db/zhl.sqlite3', 'Remove db file (ignore)')
