@@ -39,7 +39,30 @@ footer { padding: 8px 16px; border-top: 1px solid #eee; background: #fafafa; }
 
 /* Pivot table */
 .table-section { margin-top: 16px; }
-.table-section h2 { font-size: 16px; margin: 0 0 8px; }
+.table-section h2 { font-size: 16px; margin: 0; }
+.table-header { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 8px; }
+.table-toolbar { display: inline-flex; align-items: center; gap: 8px; }
+.btn { appearance: none; border: 1px solid #eee; background: #fff; color: #333; border-radius: 6px; padding: 6px 10px; font-size: 12px; cursor: pointer; box-shadow: 0 1px 2px rgba(0,0,0,0.04); }
+.btn:hover { background: #f7f7f7; }
+.btn:active { background: #f0f0f0; }
+.btn[disabled] { opacity: 0.6; cursor: not-allowed; }
+.btn-icon { width: 30px; height: 30px; display: inline-flex; align-items: center; justify-content: center; }
+.dropdown { position: relative; }
+.dropdown-menu { position: absolute; right: 0; top: calc(100% + 4px); min-width: 160px; background: #fff; border: 1px solid #eee; border-radius: 8px; box-shadow: 0 6px 20px rgba(0,0,0,0.08); display: none; padding: 6px; z-index: 10; }
+.dropdown-menu .dropdown-item { display: block; width: 100%; text-align: left; border: none; background: transparent; padding: 8px 10px; font-size: 12px; color: #333; border-radius: 6px; cursor: pointer; }
+.dropdown-menu .dropdown-item:hover { background: #f7f7f7; }
+.dropdown-menu .dropdown-divider { height: 1px; background: #eee; margin: 6px 4px; }
+.dropdown.open .dropdown-menu { display: block; }
+.fade-in { animation: fadeIn 200ms ease; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+.progress-overlay { position: fixed; left: 0; top: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.25); display: none; align-items: center; justify-content: center; z-index: 100; }
+.progress-card { background: #fff; border: 1px solid #eee; border-radius: 8px; box-shadow: 0 8px 24px rgba(0,0,0,0.12); padding: 16px; width: 280px; }
+.progress-title { font-size: 14px; margin-bottom: 8px; color: #333; }
+.progress-bar { height: 8px; background: #f0f0f0; border-radius: 999px; overflow: hidden; }
+.progress-bar-inner { height: 100%; width: 0%; background: #1a73e8; transition: width 120ms ease; }
+.error-banner { display: none; margin-bottom: 8px; padding: 8px 12px; border: 1px solid #fdd; background: #fff5f5; color: #b31412; border-radius: 8px; }
+.toast { position: fixed; right: 16px; bottom: 16px; background: #333; color: #fff; padding: 8px 12px; border-radius: 8px; font-size: 12px; opacity: 0; transform: translateY(8px); transition: all 180ms ease; z-index: 200; }
+.toast.show { opacity: 1; transform: translateY(0); }
 .table-wrapper { overflow-x: auto; border: 1px solid #eee; border-radius: 8px; }
 .pivot-table { border-collapse: collapse; width: 100%; min-width: 800px; }
 .pivot-table th, .pivot-table td { border-bottom: 1px solid #f0f0f0; padding: 6px 8px; text-align: center; font-size: 12px; }
@@ -58,6 +81,7 @@ footer { padding: 8px 16px; border-top: 1px solid #eee; background: #fafafa; }
   .controls { grid-template-columns: 1fr; gap: 12px; }
   .controls .checkbox { justify-self: start; }
   .indicator-panel { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); max-height: 180px; }
+  .table-header { flex-direction: column; align-items: flex-start; gap: 8px; }
 }
 @media (min-width: 601px) and (max-width: 1024px) {
   :root { --chart-height: 340px; }
