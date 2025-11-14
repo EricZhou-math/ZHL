@@ -44,7 +44,23 @@
       </section>
 
       <section class="table-section">
-        <h2>总览表（指标为行，检查日期为列）</h2>
+        <div class="table-header">
+          <h2>总览表（指标为行，检查日期为列）</h2>
+          <div class="table-toolbar" id="tableToolbar">
+            <button id="toggleOrientation" class="btn btn-icon" title="切换为日期为行" aria-label="切换行列显示">↔️</button>
+            <div class="dropdown" id="exportDropdown">
+              <button class="btn" id="exportBtn" aria-haspopup="true" aria-expanded="false">导出 ▾</button>
+              <div class="dropdown-menu" id="exportMenu" role="menu">
+                <button class="dropdown-item" data-format="pdf" role="menuitem">📄 PDF</button>
+                <div class="dropdown-divider"></div>
+                <button class="dropdown-item" data-format="csv" role="menuitem">🧾 CSV</button>
+                <button class="dropdown-item" data-format="xlsx" role="menuitem">📊 Excel (.xlsx)</button>
+                <div class="dropdown-divider"></div>
+                <button class="dropdown-item" data-format="md" role="menuitem">📝 Markdown</button>
+              </div>
+            </div>
+          </div>
+        </div>
         <div id="pivotTable" class="table-wrapper"></div>
       </section>
     </main>
@@ -56,6 +72,8 @@
     </footer>
   </div>
 
+  <script src="https://cdn.jsdelivr.net/npm/html2pdf.js@0.9.3/dist/html2pdf.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/exceljs@4.3.0/dist/exceljs.min.js"></script>
   <script src="./app.js"></script>
 </body>
 </html>
