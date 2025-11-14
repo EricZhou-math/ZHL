@@ -8,6 +8,12 @@
   const endCycleInput = document.getElementById('endCycle');
   const showTrendInput = document.getElementById('showTrend');
   const pivotWrapper = document.getElementById('pivotTable');
+  const tableToolbar = document.getElementById('tableToolbar');
+  const toggleOrientationBtn = document.getElementById('toggleOrientation');
+  const exportDropdown = document.getElementById('exportDropdown');
+  const exportBtn = document.getElementById('exportBtn');
+  const exportMenu = document.getElementById('exportMenu');
+  let isTransposed = false;
 
   async function loadData() {
     const fallback = async () => {
@@ -528,84 +534,149 @@
   function renderPivotTable(selectedInds) {
     pivotWrapper.innerHTML = '';
     const table = document.createElement('table');
-    table.className = 'pivot-table';
-
+    table.className = 'pivot-table fade-in';
     const thead = document.createElement('thead');
-    const trh = document.createElement('tr');
-    const h0 = document.createElement('th');
-    h0.textContent = '检测指标';
-    trh.appendChild(h0);
-    // 新增参考范围列表头
-    const h1 = document.createElement('th');
-    h1.textContent = '参考范围';
-    trh.appendChild(h1);
-    data.dates.forEach((dt) => {
-      const th = document.createElement('th');
-      th.textContent = formatDateDot(dt);
-      trh.appendChild(th);
-    });
-    thead.appendChild(trh);
-
-    // 新增第二行表头：备注每个日期对应的化疗周期
-    const trh2 = document.createElement('tr');
-    const phaseHeader = document.createElement('th');
-    phaseHeader.textContent = '所属化疗周期';
-    phaseHeader.setAttribute('colspan', '2');
-    trh2.appendChild(phaseHeader);
-    data.dates.forEach((dt) => {
-      const th2 = document.createElement('th');
-      th2.textContent = computePhaseLabel(dt);
-      trh2.appendChild(th2);
-    });
-    thead.appendChild(trh2);
-
     const tbody = document.createElement('tbody');
-    selectedInds.forEach((name) => {
-      const ind = data.indicators[name];
-      if (!ind) return;
-      const seriesAll = ind.series || [];
-      const map = {};
-      seriesAll.forEach((pt) => { map[pt.date] = pt; });
 
-      const tr = document.createElement('tr');
-      const td0 = document.createElement('td');
-      td0.textContent = name;
-      tr.appendChild(td0);
-      // 新增参考范围列，显示下限-上限(单位)
-      const td1 = document.createElement('td');
-      const ref = ind.ref || {};
-      const unit = ind.unit || '';
-      td1.textContent = (ref.lower != null && ref.upper != null)
-        ? `${ref.lower} - ${ref.upper} (${unit})`
-        : '';
-      tr.appendChild(td1);
+    if (!isTransposed) {
+      const trh = document.createElement('tr');
+      const h0 = document.createElement('th');
+      h0.textContent = '检测指标';
+      trh.appendChild(h0);
+      const h1 = document.createElement('th');
+      h1.textContent = '参考范围';
+      trh.appendChild(h1);
+      data.dates.forEach((dt) => {
+        const th = document.createElement('th');
+        th.textContent = formatDateDot(dt);
+        trh.appendChild(th);
+      });
+      thead.appendChild(trh);
+
+      const trh2 = document.createElement('tr');
+      const phaseHeader = document.createElement('th');
+      phaseHeader.textContent = '所属化疗周期';
+      phaseHeader.setAttribute('colspan', '2');
+      trh2.appendChild(phaseHeader);
+      data.dates.forEach((dt) => {
+        const th2 = document.createElement('th');
+        th2.textContent = computePhaseLabel(dt);
+        trh2.appendChild(th2);
+      });
+      thead.appendChild(trh2);
+
+      selectedInds.forEach((name) => {
+        const ind = data.indicators[name];
+        if (!ind) return;
+        const seriesAll = ind.series || [];
+        const map = {};
+        seriesAll.forEach((pt) => { map[pt.date] = pt; });
+        const tr = document.createElement('tr');
+        const td0 = document.createElement('td');
+        td0.textContent = name;
+        tr.appendChild(td0);
+        const td1 = document.createElement('td');
+        const ref = ind.ref || {};
+        const unit = ind.unit || '';
+        td1.textContent = (ref.lower != null && ref.upper != null) ? `${ref.lower} - ${ref.upper} (${unit})` : '';
+        tr.appendChild(td1);
+        data.dates.forEach((dt) => {
+          const td = document.createElement('td');
+          td.className = 'cell';
+          const pt = map[dt];
+          if (pt) {
+            const v = typeof pt.value === 'number' ? pt.value : null;
+            let flag = (pt.flag || '').trim();
+            if (!flag && v != null) {
+              const lower = ind.ref && typeof ind.ref.lower === 'number' ? ind.ref.lower : null;
+              const upper = ind.ref && typeof ind.ref.upper === 'number' ? ind.ref.upper : null;
+              if (lower != null && v < lower) flag = '↓';
+              else if (upper != null && v > upper) flag = '↑';
+              else if (lower != null || upper != null) flag = '-';
+            }
+            td.textContent = v != null ? String(v) + (flag === '↑' ? ' ↑' : flag === '↓' ? ' ↓' : '') : '';
+            if (flag === '↑') td.classList.add('up');
+            else if (flag === '↓') td.classList.add('down');
+            else td.classList.add('normal');
+          } else {
+            td.textContent = '';
+            td.classList.add('missing');
+          }
+          tr.appendChild(td);
+        });
+        tbody.appendChild(tr);
+      });
+    } else {
+      const trh = document.createElement('tr');
+      const h0 = document.createElement('th');
+      h0.textContent = '检测日期';
+      trh.appendChild(h0);
+      const h1 = document.createElement('th');
+      h1.textContent = '所属化疗周期';
+      trh.appendChild(h1);
+      selectedInds.forEach((name) => {
+        const th = document.createElement('th');
+        th.textContent = name;
+        trh.appendChild(th);
+      });
+      thead.appendChild(trh);
+
+      const trh2 = document.createElement('tr');
+      const thEmpty1 = document.createElement('th');
+      thEmpty1.textContent = '';
+      trh2.appendChild(thEmpty1);
+      const thEmpty2 = document.createElement('th');
+      thEmpty2.textContent = '';
+      trh2.appendChild(thEmpty2);
+      selectedInds.forEach((name) => {
+        const ind = data.indicators[name] || {};
+        const ref = ind.ref || {};
+        const unit = ind.unit || '';
+        const th2 = document.createElement('th');
+        th2.textContent = (ref.lower != null && ref.upper != null) ? `${ref.lower} - ${ref.upper} (${unit})` : (unit || '');
+        trh2.appendChild(th2);
+      });
+      thead.appendChild(trh2);
 
       data.dates.forEach((dt) => {
-        const td = document.createElement('td');
-        td.className = 'cell';
-        const pt = map[dt];
-        if (pt) {
-          const v = typeof pt.value === 'number' ? pt.value : null;
-          let flag = (pt.flag || '').trim();
-          if (!flag && v != null) {
-            const lower = ind.ref && typeof ind.ref.lower === 'number' ? ind.ref.lower : null;
-            const upper = ind.ref && typeof ind.ref.upper === 'number' ? ind.ref.upper : null;
-            if (lower != null && v < lower) flag = '↓';
-            else if (upper != null && v > upper) flag = '↑';
-            else if (lower != null || upper != null) flag = '-';
+        const tr = document.createElement('tr');
+        const td0 = document.createElement('td');
+        td0.textContent = formatDateDot(dt);
+        tr.appendChild(td0);
+        const td1 = document.createElement('td');
+        td1.textContent = computePhaseLabel(dt);
+        tr.appendChild(td1);
+        selectedInds.forEach((name) => {
+          const ind = data.indicators[name];
+          const seriesAll = ind && ind.series ? ind.series : [];
+          const map = {};
+          for (let i = 0; i < seriesAll.length; i++) { const pt = seriesAll[i]; map[pt.date] = pt; }
+          const td = document.createElement('td');
+          td.className = 'cell';
+          const pt = map[dt];
+          if (pt) {
+            const v = typeof pt.value === 'number' ? pt.value : null;
+            let flag = (pt.flag || '').trim();
+            if (!flag && v != null) {
+              const lower = ind && ind.ref && typeof ind.ref.lower === 'number' ? ind.ref.lower : null;
+              const upper = ind && ind.ref && typeof ind.ref.upper === 'number' ? ind.ref.upper : null;
+              if (lower != null && v < lower) flag = '↓';
+              else if (upper != null && v > upper) flag = '↑';
+              else if (lower != null || upper != null) flag = '-';
+            }
+            td.textContent = v != null ? String(v) + (flag === '↑' ? ' ↑' : flag === '↓' ? ' ↓' : '') : '';
+            if (flag === '↑') td.classList.add('up');
+            else if (flag === '↓') td.classList.add('down');
+            else td.classList.add('normal');
+          } else {
+            td.textContent = '';
+            td.classList.add('missing');
           }
-          td.textContent = v != null ? String(v) + (flag === '↑' ? ' ↑' : flag === '↓' ? ' ↓' : '') : '';
-          if (flag === '↑') td.classList.add('up');
-          else if (flag === '↓') td.classList.add('down');
-          else td.classList.add('normal');
-        } else {
-          td.textContent = '';
-          td.classList.add('missing');
-        }
-        tr.appendChild(td);
+          tr.appendChild(td);
+        });
+        tbody.appendChild(tr);
       });
-      tbody.appendChild(tr);
-    });
+    }
 
     table.appendChild(thead);
     table.appendChild(tbody);
@@ -642,4 +713,326 @@
     chartInstancesCore.forEach((obj) => { try { obj.chart && obj.chart.resize(); } catch (_) {} });
     chartInstancesExt.forEach((obj) => { try { obj.chart && obj.chart.resize(); } catch (_) {} });
   });
+
+  if (toggleOrientationBtn) {
+    toggleOrientationBtn.addEventListener('click', () => {
+      isTransposed = !isTransposed;
+      toggleOrientationBtn.textContent = isTransposed ? '↕️' : '↔️';
+      toggleOrientationBtn.setAttribute('title', isTransposed ? '切换为指标为行' : '切换为日期为行');
+      update();
+    });
+  }
+  if (exportBtn && exportDropdown && exportMenu) {
+    exportBtn.addEventListener('click', () => {
+      const opened = exportDropdown.classList.contains('open');
+      exportDropdown.classList.toggle('open', !opened);
+      exportBtn.setAttribute('aria-expanded', (!opened).toString());
+    });
+    document.addEventListener('click', (e) => {
+      if (!exportDropdown.contains(e.target)) {
+        exportDropdown.classList.remove('open');
+        exportBtn.setAttribute('aria-expanded', 'false');
+      }
+    });
+    exportMenu.addEventListener('click', async (e) => {
+      const target = e.target;
+      if (!target || !target.dataset || !target.dataset.format) return;
+      const fmt = target.dataset.format;
+      const selected = getSelectedIndicators();
+      const allShown = coreNames.concat(selected);
+      const now = new Date();
+      const yyyy = String(now.getFullYear());
+      const mm = String(now.getMonth() + 1).padStart(2, '0');
+      const dd = String(now.getDate()).padStart(2, '0');
+      const base = `pivot-${yyyy}-${mm}-${dd}`;
+      try {
+        if (fmt === 'csv') {
+          const rows = collectPivotData(allShown);
+          await exportCSV(rows, base + '.csv');
+          showToast('CSV 导出完成');
+        } else if (fmt === 'md') {
+          const rows = collectPivotData(allShown);
+          await exportMarkdown(rows, base + '.md');
+          showToast('Markdown 导出完成');
+        } else if (fmt === 'xlsx') {
+          const rows = collectPivotData(allShown);
+          await exportExcel(rows, base + '.xlsx');
+          showToast('Excel 导出完成');
+        } else if (fmt === 'pdf') {
+          await exportPDF(base + '.pdf');
+          showToast('PDF 导出完成');
+        }
+      } catch (err) {
+        showError('导出失败：' + (err && err.message ? err.message : String(err)));
+      } finally {
+        exportDropdown.classList.remove('open');
+        exportBtn.setAttribute('aria-expanded', 'false');
+      }
+    });
+  }
+
+  function collectPivotData(selectedInds) {
+    const header1 = [];
+    const header2 = [];
+    const body = [];
+    if (!isTransposed) {
+      header1.push('检测指标');
+      header1.push('参考范围');
+      for (let i = 0; i < data.dates.length; i++) header1.push(formatDateDot(data.dates[i]));
+      header2.push('所属化疗周期');
+      header2.push('');
+      for (let i = 0; i < data.dates.length; i++) header2.push(computePhaseLabel(data.dates[i]));
+      for (let i = 0; i < selectedInds.length; i++) {
+        const name = selectedInds[i];
+        const ind = data.indicators[name];
+        if (!ind) continue;
+        const ref = ind.ref || {};
+        const unit = ind.unit || '';
+        const row = [];
+        row.push(name);
+        row.push((ref.lower != null && ref.upper != null) ? `${ref.lower} - ${ref.upper} (${unit})` : '');
+        for (let j = 0; j < data.dates.length; j++) {
+          const dt = data.dates[j];
+          const pt = (ind.series || []).find((p) => p.date === dt);
+          if (pt && typeof pt.value === 'number') {
+            let flag = (pt.flag || '').trim();
+            if (!flag) {
+              const lower = ind.ref && typeof ind.ref.lower === 'number' ? ind.ref.lower : null;
+              const upper = ind.ref && typeof ind.ref.upper === 'number' ? ind.ref.upper : null;
+              if (lower != null && pt.value < lower) flag = '↓';
+              else if (upper != null && pt.value > upper) flag = '↑';
+              else if (lower != null || upper != null) flag = '-';
+            }
+            row.push(String(pt.value) + (flag === '↑' ? ' ↑' : flag === '↓' ? ' ↓' : ''));
+          } else {
+            row.push('');
+          }
+        }
+        body.push(row);
+      }
+    } else {
+      header1.push('检测日期');
+      header1.push('所属化疗周期');
+      for (let i = 0; i < selectedInds.length; i++) header1.push(selectedInds[i]);
+      header2.push('');
+      header2.push('');
+      for (let i = 0; i < selectedInds.length; i++) {
+        const ind = data.indicators[selectedInds[i]] || {};
+        const ref = ind.ref || {};
+        const unit = ind.unit || '';
+        header2.push((ref.lower != null && ref.upper != null) ? `${ref.lower} - ${ref.upper} (${unit})` : (unit || ''));
+      }
+      for (let j = 0; j < data.dates.length; j++) {
+        const dt = data.dates[j];
+        const row = [];
+        row.push(formatDateDot(dt));
+        row.push(computePhaseLabel(dt));
+        for (let i = 0; i < selectedInds.length; i++) {
+          const name = selectedInds[i];
+          const ind = data.indicators[name];
+          const pt = ind && (ind.series || []).find((p) => p.date === dt);
+          if (pt && typeof pt.value === 'number') {
+            let flag = (pt.flag || '').trim();
+            if (!flag) {
+              const lower = ind && ind.ref && typeof ind.ref.lower === 'number' ? ind.ref.lower : null;
+              const upper = ind && ind.ref && typeof ind.ref.upper === 'number' ? ind.ref.upper : null;
+              if (lower != null && pt.value < lower) flag = '↓';
+              else if (upper != null && pt.value > upper) flag = '↑';
+              else if (lower != null || upper != null) flag = '-';
+            }
+            row.push(String(pt.value) + (flag === '↑' ? ' ↑' : flag === '↓' ? ' ↓' : ''));
+          } else {
+            row.push('');
+          }
+        }
+        body.push(row);
+      }
+    }
+    return [header1, header2].concat(body);
+  }
+
+  async function exportCSV(rows, filename) {
+    const totalRows = rows.length;
+    const needsProgress = totalRows >= 10000;
+    if (needsProgress) showProgress('正在导出 CSV');
+    let out = '\uFEFF';
+    const chunk = 500;
+    for (let i = 0; i < totalRows; i += chunk) {
+      const end = Math.min(i + chunk, totalRows);
+      for (let r = i; r < end; r++) {
+        const line = rows[r].map((cell) => {
+          const s = cell == null ? '' : String(cell);
+          if (/[",\n]/.test(s)) return '"' + s.replace(/"/g, '""') + '"';
+          return s;
+        }).join(',');
+        out += line + '\n';
+      }
+      if (needsProgress) {
+        updateProgress(Math.round((end / totalRows) * 100));
+        await new Promise((res) => setTimeout(res, 0));
+      }
+    }
+    const blob = new Blob([out], { type: 'text/csv;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = filename; a.click();
+    URL.revokeObjectURL(url);
+    if (needsProgress) hideProgress();
+  }
+
+  async function exportMarkdown(rows, filename) {
+    const totalRows = rows.length;
+    const needsProgress = totalRows >= 10000;
+    if (needsProgress) showProgress('正在导出 Markdown');
+    const header = rows[0] || [];
+    const md = [];
+    md.push('| ' + header.map((x) => String(x || '')).join(' | ') + ' |');
+    md.push('|' + header.map(() => ' --- ').join('|') + '|');
+    const start = 2;
+    const chunk = 500;
+    for (let i = start; i < totalRows; i += chunk) {
+      const end = Math.min(i + chunk, totalRows);
+      for (let r = i; r < end; r++) {
+        md.push('| ' + rows[r].map((x) => String(x || '').replace(/\n/g, ' ')).join(' | ') + ' |');
+      }
+      if (needsProgress) {
+        updateProgress(Math.round((end / totalRows) * 100));
+        await new Promise((res) => setTimeout(res, 0));
+      }
+    }
+    const blob = new Blob([md.join('\n') + '\n'], { type: 'text/markdown;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = filename; a.click();
+    URL.revokeObjectURL(url);
+    if (needsProgress) hideProgress();
+  }
+
+  async function exportExcel(rows, filename) {
+    if (typeof ExcelJS === 'undefined') return;
+    const wb = new ExcelJS.Workbook();
+    const ws = wb.addWorksheet('Pivot');
+    const totalRows = rows.length;
+    const needsProgress = totalRows >= 10000;
+    if (needsProgress) showProgress('正在导出 Excel');
+    const chunk = 500;
+    for (let i = 0; i < totalRows; i += chunk) {
+      const end = Math.min(i + chunk, totalRows);
+      for (let r = i; r < end; r++) ws.addRow(rows[r]);
+      if (needsProgress) {
+        updateProgress(Math.round((end / totalRows) * 100));
+        await new Promise((res) => setTimeout(res, 0));
+      }
+    }
+    const headerRows = 2;
+    for (let r = 1; r <= headerRows; r++) {
+      const row = ws.getRow(r);
+      row.font = { bold: true };
+      row.alignment = { vertical: 'middle', horizontal: 'center' };
+      row.eachCell({ includeEmpty: true }, (cell) => { cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FFF9F9F9' } }; });
+    }
+    ws.views = [{ state: 'frozen', xSplit: 0, ySplit: 2 }];
+    const widths = [];
+    const colCount = rows[0] ? rows[0].length : 0;
+    for (let c = 0; c < colCount; c++) {
+      let max = 10;
+      for (let r = 0; r < Math.min(rows.length, 100); r++) {
+        const v = rows[r][c];
+        const len = v == null ? 0 : String(v).length;
+        if (len > max) max = len;
+      }
+      widths.push({ width: Math.min(40, Math.max(10, Math.ceil(max * 1.2))) });
+    }
+    ws.columns = widths;
+    const buf = await wb.xlsx.writeBuffer();
+    const blob = new Blob([buf], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = filename; a.click();
+    URL.revokeObjectURL(url);
+    if (needsProgress) hideProgress();
+  }
+
+  async function exportPDF(filename) {
+    if (typeof html2pdf === 'undefined') return;
+    const node = pivotWrapper.cloneNode(true);
+    const ths = node.querySelectorAll('thead th');
+    ths.forEach((el) => { el.style.position = 'static'; el.style.top = 'auto'; });
+    const opt = { margin: 10, filename, image: { type: 'jpeg', quality: 0.98 }, html2canvas: { scale: 2 }, jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' }, pagebreak: { mode: ['css','legacy'] } };
+    await html2pdf().set(opt).from(node).save();
+  }
+
+  function ensureProgressDom() {
+    let overlay = document.getElementById('progressOverlay');
+    if (!overlay) {
+      overlay = document.createElement('div');
+      overlay.id = 'progressOverlay';
+      overlay.className = 'progress-overlay';
+      const card = document.createElement('div');
+      card.className = 'progress-card';
+      const title = document.createElement('div');
+      title.className = 'progress-title';
+      title.id = 'progressTitle';
+      const bar = document.createElement('div');
+      bar.className = 'progress-bar';
+      const inner = document.createElement('div');
+      inner.className = 'progress-bar-inner';
+      inner.id = 'progressInner';
+      bar.appendChild(inner);
+      card.appendChild(title);
+      card.appendChild(bar);
+      overlay.appendChild(card);
+      document.body.appendChild(overlay);
+    }
+    return overlay;
+  }
+  function showProgress(title) {
+    const overlay = ensureProgressDom();
+    const t = document.getElementById('progressTitle');
+    if (t) t.textContent = title || '';
+    const inner = document.getElementById('progressInner');
+    if (inner) inner.style.width = '0%';
+    overlay.style.display = 'flex';
+  }
+  function updateProgress(pct) {
+    const inner = document.getElementById('progressInner');
+    if (inner) inner.style.width = String(Math.max(0, Math.min(100, pct))) + '%';
+  }
+  function hideProgress() {
+    const overlay = document.getElementById('progressOverlay');
+    if (overlay) overlay.style.display = 'none';
+  }
+  function ensureErrorBanner() {
+    let banner = document.getElementById('errorBanner');
+    if (!banner) {
+      banner = document.createElement('div');
+      banner.id = 'errorBanner';
+      banner.className = 'error-banner';
+      const section = document.querySelector('.table-section');
+      if (section) section.insertBefore(banner, section.firstChild);
+    }
+    return banner;
+  }
+  function showError(msg) {
+    const banner = ensureErrorBanner();
+    banner.textContent = msg || '发生错误';
+    banner.style.display = 'block';
+    setTimeout(() => { banner.style.display = 'none'; }, 5000);
+  }
+  function ensureToastDom() {
+    let el = document.getElementById('toast');
+    if (!el) {
+      el = document.createElement('div');
+      el.id = 'toast';
+      el.className = 'toast';
+      document.body.appendChild(el);
+    }
+    return el;
+  }
+  function showToast(text) {
+    const el = ensureToastDom();
+    el.textContent = text || '';
+    el.classList.add('show');
+    setTimeout(() => { el.classList.remove('show'); }, 2000);
+  }
 })();
