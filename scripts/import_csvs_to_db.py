@@ -15,6 +15,7 @@ DATE_FORMATS = [
     '%Y-%m-%d', '%Y/%m/%d', '%Y.%m.%d', '%Y%m%d',
     # 含时间
     '%Y-%m-%d %H:%M', '%Y/%m/%d %H:%M', '%Y.%m.%d %H:%M',
+    '%Y-%m-%d %H:%M:%S', '%Y/%m/%d %H:%M:%S', '%Y.%m.%d %H:%M:%S',
     # 美式月/日/年（两位或四位年），可能带时间
     '%m/%d/%y', '%m/%d/%Y', '%m/%d/%y %H:%M', '%m/%d/%Y %H:%M'
 ]
@@ -25,6 +26,15 @@ def normalize_date(s: str) -> str:
     for fmt in DATE_FORMATS:
         try:
             dt = datetime.strptime(s, fmt)
+            return dt.strftime('%Y-%m-%d')
+        except Exception:
+            pass
+    # 处理形如 YYYY-M-D [HH:MM[:SS]] 的非零填充格式
+    m = re.match(r'^(\d{4})[-/.](\d{1,2})[-/.](\d{1,2})(?:\s+(\d{1,2})(?::(\d{1,2})(?::(\d{1,2}))?)?)?$', s)
+    if m:
+        y, mo, d, *_ = m.groups()
+        try:
+            dt = datetime(int(y), int(mo), int(d))
             return dt.strftime('%Y-%m-%d')
         except Exception:
             pass
@@ -63,7 +73,16 @@ def parse_ref_range(s: str):
     if not s:
         return None, None
     text = str(s)
-    nums = re.findall(r'[-+]?\d*\.\d+|[-+]?\d+', text)
+    # 先按常见分隔符拆分（避免将范围的连字符当作负号）
+    parts = re.split(r'\s*[-~至–—]\s*', text)
+    parts = [p for p in parts if p.strip()]
+    def to_float(tok):
+        m = re.search(r'(\d*\.\d+|\d+)', tok)
+        return float(m.group(1)) if m else None
+    if len(parts) >= 2:
+        return to_float(parts[0]), to_float(parts[1])
+    # 回退：从整串中提取数字
+    nums = re.findall(r'(\d*\.\d+|\d+)', text)
     if len(nums) >= 2:
         return float(nums[0]), float(nums[1])
     elif len(nums) == 1:
