@@ -594,9 +594,10 @@
               else if (upper != null && v > upper) flag = '↑';
               else if (lower != null || upper != null) flag = '-';
             }
-            td.textContent = v != null ? String(v) + (flag === '↑' ? ' ↑' : flag === '↓' ? ' ↓' : '') : '';
-            if (flag === '↑') td.classList.add('up');
-            else if (flag === '↓') td.classList.add('down');
+            const showFlag = flag && /[↑↓]/.test(flag) ? (flag.indexOf('↑') !== -1 ? ' ↑' : ' ↓') : '';
+            td.textContent = v != null ? String(v) + showFlag : '';
+            if (flag && flag.indexOf('↑') !== -1) td.classList.add('up');
+            else if (flag && flag.indexOf('↓') !== -1) td.classList.add('down');
             else td.classList.add('normal');
           } else {
             td.textContent = '';
@@ -664,9 +665,10 @@
               else if (upper != null && v > upper) flag = '↑';
               else if (lower != null || upper != null) flag = '-';
             }
-            td.textContent = v != null ? String(v) + (flag === '↑' ? ' ↑' : flag === '↓' ? ' ↓' : '') : '';
-            if (flag === '↑') td.classList.add('up');
-            else if (flag === '↓') td.classList.add('down');
+            const showFlag2 = flag && /[↑↓]/.test(flag) ? (flag.indexOf('↑') !== -1 ? ' ↑' : ' ↓') : '';
+            td.textContent = v != null ? String(v) + showFlag2 : '';
+            if (flag && flag.indexOf('↑') !== -1) td.classList.add('up');
+            else if (flag && flag.indexOf('↓') !== -1) td.classList.add('down');
             else td.classList.add('normal');
           } else {
             td.textContent = '';
@@ -803,7 +805,7 @@
               else if (upper != null && pt.value > upper) flag = '↑';
               else if (lower != null || upper != null) flag = '-';
             }
-            row.push(String(pt.value) + (flag === '↑' ? ' ↑' : flag === '↓' ? ' ↓' : ''));
+            { const showFlag = flag && /[↑↓]/.test(flag) ? (flag.indexOf('↑') !== -1 ? ' ↑' : ' ↓') : ''; row.push(String(pt.value) + showFlag); }
           } else {
             row.push('');
           }
@@ -840,7 +842,7 @@
               else if (upper != null && pt.value > upper) flag = '↑';
               else if (lower != null || upper != null) flag = '-';
             }
-            row.push(String(pt.value) + (flag === '↑' ? ' ↑' : flag === '↓' ? ' ↓' : ''));
+            { const showFlag = flag && /[↑↓]/.test(flag) ? (flag.indexOf('↑') !== -1 ? ' ↑' : ' ↓') : ''; row.push(String(pt.value) + showFlag); }
           } else {
             row.push('');
           }
