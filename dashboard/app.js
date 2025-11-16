@@ -966,12 +966,28 @@
   }
 
   async function exportPDF(filename) {
-    if (typeof html2pdf === 'undefined') return;
+    async function ensureLib() {
+      if (typeof html2pdf !== 'undefined') return;
+      await new Promise((res, rej) => {
+        const s = document.createElement('script');
+        s.src = 'https://cdn.jsdelivr.net/npm/html2pdf.js@0.9.3/dist/html2pdf.bundle.min.js';
+        s.onload = res; s.onerror = rej; document.head.appendChild(s);
+      });
+    }
+    await ensureLib();
     const node = pivotWrapper.cloneNode(true);
     const ths = node.querySelectorAll('thead th');
     ths.forEach((el) => { el.style.position = 'static'; el.style.top = 'auto'; });
     const opt = { margin: 10, filename, image: { type: 'jpeg', quality: 0.98 }, html2canvas: { scale: 2 }, jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' }, pagebreak: { mode: ['css','legacy'] } };
-    await html2pdf().set(opt).from(node).save();
+    const worker = html2pdf().set(opt).from(node).toPdf();
+    const pdf = await worker.get('pdf');
+    const blob = pdf.output('blob');
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = filename; a.target = '_blank';
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(() => { URL.revokeObjectURL(url); a.remove(); }, 250);
   }
 
   function ensureProgressDom() {
