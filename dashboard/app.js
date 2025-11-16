@@ -765,7 +765,7 @@
           showToast('PDF 导出完成');
         } else if (fmt === 'png') {
           await exportPNG(base + '.png');
-          showToast('PDF 导出完成');
+          showToast('PNG 导出完成');
         }
       } catch (err) {
         showError('导出失败：' + (err && err.message ? err.message : String(err)));
@@ -1025,11 +1025,23 @@
     tmp.style.position = 'fixed';
     tmp.style.left = '-99999px';
     tmp.style.top = '0';
-    const node = pivotWrapper.cloneNode(true);
-    node.style.width = '390px';
-    tmp.appendChild(node);
+    tmp.style.background = '#ffffff';
+    const originalTable = pivotWrapper.querySelector('table');
+    const node = originalTable ? originalTable.cloneNode(true) : pivotWrapper.cloneNode(true);
+    node.querySelectorAll('thead th').forEach(el => { el.style.position = 'static'; el.style.top = 'auto'; });
+    const fullWidth = originalTable ? (originalTable.scrollWidth || originalTable.offsetWidth) : (pivotWrapper.scrollWidth || pivotWrapper.offsetWidth);
+    const targetWidth = 390;
+    const scaleRatio = fullWidth > 0 ? Math.min(1, targetWidth / fullWidth) : 1;
+    node.style.width = fullWidth + 'px';
+    node.style.transformOrigin = 'top left';
+    node.style.transform = `scale(${scaleRatio})`;
+    const frame = document.createElement('div');
+    frame.style.width = targetWidth + 'px';
+    frame.style.overflow = 'visible';
+    frame.appendChild(node);
+    tmp.appendChild(frame);
     document.body.appendChild(tmp);
-    const canvas = await html2canvas(node, { scale: 2, backgroundColor: '#ffffff' });
+    const canvas = await html2canvas(frame, { scale: 2, backgroundColor: '#ffffff' });
     const url = canvas.toDataURL('image/png');
     const a = document.createElement('a');
     a.href = url;
