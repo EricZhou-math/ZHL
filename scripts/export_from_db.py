@@ -1,6 +1,8 @@
 import json
 import sqlite3
 from pathlib import Path
+from datetime import datetime
+import re
 
 BASE = Path(__file__).resolve().parent.parent
 DB_PATH = BASE / 'db' / 'zhl.sqlite3'
@@ -25,6 +27,35 @@ def canonical_name(name: str) -> str:
     name = (name or '').strip()
     return NAME_SYNONYMS.get(name, name)
 
+def normalize_date_str(s: str) -> str:
+    s = (s or '').strip()
+    if not s:
+        return s
+    # 支持 ISO 与非零填充格式：YYYY-M-D [HH:MM[:SS]]
+    m = re.match(r'^(\d{4})[-/.](\d{1,2})[-/.](\d{1,2})(?:\s+(\d{1,2})(?::(\d{1,2})(?::(\d{1,2}))?)?)?$', s)
+    if m:
+        y, mo, d = m.group(1), m.group(2), m.group(3)
+        try:
+            dt = datetime(int(y), int(mo), int(d))
+            return dt.strftime('%Y-%m-%d')
+        except Exception:
+            pass
+    # 备用：尝试常见格式
+    for fmt in ('%Y-%m-%d', '%Y/%m/%d', '%Y.%m.%d', '%Y%m%d', '%m/%d/%y', '%m/%d/%Y'):
+        try:
+            dt = datetime.strptime(s, fmt)
+            return dt.strftime('%Y-%m-%d')
+        except Exception:
+            continue
+    return s
+
+def date_key(s: str):
+    s2 = normalize_date_str(s)
+    try:
+        return datetime.strptime(s2, '%Y-%m-%d')
+    except Exception:
+        return datetime.max
+
 def export_payload() -> dict:
     conn = sqlite3.connect(DB_PATH)
     try:
@@ -34,8 +65,9 @@ def export_payload() -> dict:
         cur.execute('SELECT key, value FROM meta')
         meta = {row['key']: row['value'] for row in cur.fetchall()}
 
-        cur.execute('SELECT date FROM dates ORDER BY date')
-        dates = [row['date'] for row in cur.fetchall()]
+        cur.execute('SELECT date FROM dates')
+        dates_raw = [row['date'] for row in cur.fetchall()]
+        dates = sorted({normalize_date_str(d) for d in dates_raw}, key=lambda x: date_key(x))
 
         cur.execute('SELECT id, name, unit, ref_lower, ref_upper FROM indicators ORDER BY name')
         inds = cur.fetchall()
@@ -47,18 +79,25 @@ def export_payload() -> dict:
             unit = ind['unit'] or ''
             ref = {}
             if ind['ref_lower'] is not None or ind['ref_upper'] is not None:
+                lower = ind['ref_lower']
+                upper = ind['ref_upper']
+                if isinstance(upper, (int, float)) and upper < 0:
+                    upper = abs(upper)
+                if isinstance(lower, (int, float)) and isinstance(upper, (int, float)) and lower > upper:
+                    lower, upper = upper, lower
                 ref = {
-                    'lower': ind['ref_lower'],
-                    'upper': ind['ref_upper']
+                    'lower': lower,
+                    'upper': upper
                 }
 
             cur.execute('''
                 SELECT d.date as date, m.value as value, m.status as status, m.flag as flag, m.phase as phase
                 FROM measurements m JOIN dates d ON m.date_id = d.id
                 WHERE m.indicator_id = ?
-                ORDER BY d.date
             ''', (ind_id,))
             rows = cur.fetchall()
+            # 统一日期并排序
+            rows = sorted(rows, key=lambda r: date_key(r['date']))
 
             def derive_flag_status(val, r):
                 # 根据参考范围自动推断异常标记；当原标记缺失或为空时应用
@@ -78,7 +117,7 @@ def export_payload() -> dict:
             series = []
             for row in rows:
                 s = {
-                    'date': row['date'],
+                    'date': normalize_date_str(row['date']),
                     'value': row['value'],
                     'status': row['status'],
                     'flag': row['flag'],
@@ -92,6 +131,26 @@ def export_payload() -> dict:
                     if auto_status:
                         s['status'] = auto_status
                 series.append(s)
+            # 初始去重：同一天保留信息量更高的点
+            by_date_initial = {}
+            for pt in series:
+                ex = by_date_initial.get(pt['date'])
+                if not ex:
+                    by_date_initial[pt['date']] = pt
+                else:
+                    e_num = isinstance(ex.get('value'), (int, float))
+                    s_num = isinstance(pt.get('value'), (int, float))
+                    choose_src = False
+                    if s_num and not e_num:
+                        choose_src = True
+                    elif s_num and e_num:
+                        e_score = 1 if (ex.get('flag') in {'↑', '↓'}) else 0
+                        s_score = 1 if (pt.get('flag') in {'↑', '↓'}) else 0
+                        if s_score >= e_score:
+                            choose_src = True
+                    if choose_src:
+                        by_date_initial[pt['date']] = pt
+            series = [by_date_initial[d] for d in sorted(by_date_initial.keys(), key=date_key)]
             # 合并到 canonical 指标名（避免同义词重复导致数据分散）
             if canon not in indicators:
                 indicators[canon] = {
@@ -128,7 +187,7 @@ def export_payload() -> dict:
                                 choose_src = True
                         if choose_src:
                             by_date[pt['date']] = pt
-                indicators[canon]['series'] = [by_date[d] for d in sorted(by_date.keys())]
+                indicators[canon]['series'] = [by_date[d] for d in sorted(by_date.keys(), key=date_key)]
 
         payload = {
             'start_date': meta.get('start_date'),
