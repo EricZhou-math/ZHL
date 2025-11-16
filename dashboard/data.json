@@ -12,8 +12,8 @@
     "2025-10-14",
     "2025-10-24",
     "2025-10-30",
-    "2025-11-12",
-    "2025-11-4 8:44:25"
+    "2025-11-04",
+    "2025-11-12"
   ],
   "indicators": {
     "不典型淋巴细胞百分比": {
@@ -59,7 +59,7 @@
           "phase": null
         },
         {
-          "date": "2025-11-4 8:44:25",
+          "date": "2025-11-04",
           "value": 0.1,
           "status": "-",
           "flag": "-",
@@ -110,7 +110,7 @@
           "phase": null
         },
         {
-          "date": "2025-11-4 8:44:25",
+          "date": "2025-11-04",
           "value": 0.01,
           "status": "-",
           "flag": "-",
@@ -196,15 +196,15 @@
           "phase": null
         },
         {
-          "date": "2025-11-12",
-          "value": 66.5,
+          "date": "2025-11-04",
+          "value": 53.2,
           "status": "-",
           "flag": "-",
           "phase": null
         },
         {
-          "date": "2025-11-4 8:44:25",
-          "value": 53.2,
+          "date": "2025-11-12",
+          "value": 66.5,
           "status": "-",
           "flag": "-",
           "phase": null
@@ -289,17 +289,17 @@
           "phase": null
         },
         {
+          "date": "2025-11-04",
+          "value": 0.96,
+          "status": "↓",
+          "flag": "↓",
+          "phase": null
+        },
+        {
           "date": "2025-11-12",
           "value": 4.05,
           "status": "-",
           "flag": "-",
-          "phase": null
-        },
-        {
-          "date": "2025-11-4 8:44:25",
-          "value": 0.96,
-          "status": "↓",
-          "flag": "↓",
           "phase": null
         }
       ]
@@ -382,15 +382,15 @@
           "phase": null
         },
         {
-          "date": "2025-11-12",
-          "value": 8.7,
+          "date": "2025-11-04",
+          "value": 3.5,
           "status": "-",
           "flag": "-",
           "phase": null
         },
         {
-          "date": "2025-11-4 8:44:25",
-          "value": 3.5,
+          "date": "2025-11-12",
+          "value": 8.7,
           "status": "-",
           "flag": "-",
           "phase": null
@@ -475,17 +475,17 @@
           "phase": null
         },
         {
+          "date": "2025-11-04",
+          "value": 0.06,
+          "status": "↓",
+          "flag": "↓",
+          "phase": null
+        },
+        {
           "date": "2025-11-12",
           "value": 0.53,
           "status": "-",
           "flag": "-",
-          "phase": null
-        },
-        {
-          "date": "2025-11-4 8:44:25",
-          "value": 0.06,
-          "status": "↓",
-          "flag": "↓",
           "phase": null
         }
       ]
@@ -568,15 +568,15 @@
           "phase": null
         },
         {
-          "date": "2025-11-12",
-          "value": 0.1,
+          "date": "2025-11-04",
+          "value": 0.5,
           "status": "-",
           "flag": "-",
           "phase": null
         },
         {
-          "date": "2025-11-4 8:44:25",
-          "value": 0.5,
+          "date": "2025-11-12",
+          "value": 0.1,
           "status": "-",
           "flag": "-",
           "phase": null
@@ -661,15 +661,15 @@
           "phase": null
         },
         {
-          "date": "2025-11-12",
-          "value": 0.01,
+          "date": "2025-11-04",
+          "value": 0.0,
           "status": "-",
           "flag": "-",
           "phase": null
         },
         {
-          "date": "2025-11-4 8:44:25",
-          "value": 0.0,
+          "date": "2025-11-12",
+          "value": 0.01,
           "status": "-",
           "flag": "-",
           "phase": null
@@ -754,17 +754,17 @@
           "phase": null
         },
         {
+          "date": "2025-11-04",
+          "value": 1.2,
+          "status": "-",
+          "flag": "-",
+          "phase": null
+        },
+        {
           "date": "2025-11-12",
           "value": 0.1,
           "status": "↓",
           "flag": "↓",
-          "phase": null
-        },
-        {
-          "date": "2025-11-4 8:44:25",
-          "value": 1.2,
-          "status": "-",
-          "flag": "-",
           "phase": null
         }
       ]
@@ -847,17 +847,17 @@
           "phase": null
         },
         {
+          "date": "2025-11-04",
+          "value": 0.02,
+          "status": "-",
+          "flag": "-",
+          "phase": null
+        },
+        {
           "date": "2025-11-12",
           "value": 0.01,
           "status": "↓",
           "flag": "↓",
-          "phase": null
-        },
-        {
-          "date": "2025-11-4 8:44:25",
-          "value": 0.02,
-          "status": "-",
-          "flag": "-",
           "phase": null
         }
       ]
@@ -956,7 +956,7 @@
           "phase": null
         },
         {
-          "date": "2025-11-4 8:44:25",
+          "date": "2025-11-04",
           "value": 0.7,
           "status": "-",
           "flag": "-",
@@ -1014,7 +1014,7 @@
           "phase": null
         },
         {
-          "date": "2025-11-4 8:44:25",
+          "date": "2025-11-04",
           "value": 0.01,
           "status": "-",
           "flag": "-",
@@ -1100,15 +1100,15 @@
           "phase": null
         },
         {
-          "date": "2025-11-12",
-          "value": 103.5,
+          "date": "2025-11-04",
+          "value": 103.0,
           "status": "↑",
           "flag": "↑",
           "phase": null
         },
         {
-          "date": "2025-11-4 8:44:25",
-          "value": 103.0,
+          "date": "2025-11-12",
+          "value": 103.5,
           "status": "↑",
           "flag": "↑",
           "phase": null
@@ -1232,7 +1232,7 @@
           "phase": null
         },
         {
-          "date": "2025-11-4 8:44:25",
+          "date": "2025-11-04",
           "value": 9.1,
           "status": "-",
           "flag": "-",
@@ -1311,7 +1311,7 @@
           "phase": null
         },
         {
-          "date": "2025-11-4 8:44:25",
+          "date": "2025-11-04",
           "value": 33.0,
           "status": "-",
           "flag": "-",
@@ -1390,7 +1390,7 @@
           "phase": null
         },
         {
-          "date": "2025-11-4 8:44:25",
+          "date": "2025-11-04",
           "value": 321.3,
           "status": "-",
           "flag": "-",
@@ -1630,15 +1630,15 @@
           "phase": null
         },
         {
-          "date": "2025-11-12",
-          "value": 24.6,
+          "date": "2025-11-04",
+          "value": 41.6,
           "status": "-",
           "flag": "-",
           "phase": null
         },
         {
-          "date": "2025-11-4 8:44:25",
-          "value": 41.6,
+          "date": "2025-11-12",
+          "value": 24.6,
           "status": "-",
           "flag": "-",
           "phase": null
@@ -1723,17 +1723,17 @@
           "phase": null
         },
         {
+          "date": "2025-11-04",
+          "value": 0.75,
+          "status": "↓",
+          "flag": "↓",
+          "phase": null
+        },
+        {
           "date": "2025-11-12",
           "value": 1.5,
           "status": "-",
           "flag": "-",
-          "phase": null
-        },
-        {
-          "date": "2025-11-4 8:44:25",
-          "value": 0.75,
-          "status": "↓",
-          "flag": "↓",
           "phase": null
         }
       ]
@@ -1816,17 +1816,17 @@
           "phase": null
         },
         {
+          "date": "2025-11-04",
+          "value": 1.81,
+          "status": "↓",
+          "flag": "↓",
+          "phase": null
+        },
+        {
           "date": "2025-11-12",
           "value": 6.1,
           "status": "-",
           "flag": "-",
-          "phase": null
-        },
-        {
-          "date": "2025-11-4 8:44:25",
-          "value": 1.81,
-          "status": "↓",
-          "flag": "↓",
           "phase": null
         }
       ]
@@ -1909,17 +1909,17 @@
           "phase": null
         },
         {
+          "date": "2025-11-04",
+          "value": 2.2,
+          "status": "↓",
+          "flag": "↓",
+          "phase": null
+        },
+        {
           "date": "2025-11-12",
           "value": 1.95,
           "status": "↓↓",
           "flag": "↓↓",
-          "phase": null
-        },
-        {
-          "date": "2025-11-4 8:44:25",
-          "value": 2.2,
-          "status": "↓",
-          "flag": "↓",
           "phase": null
         }
       ]
@@ -2027,15 +2027,15 @@
           "phase": null
         },
         {
-          "date": "2025-11-12",
-          "value": 19.5,
+          "date": "2025-11-04",
+          "value": 18.3,
           "status": "↑",
           "flag": "↑",
           "phase": null
         },
         {
-          "date": "2025-11-4 8:44:25",
-          "value": 18.3,
+          "date": "2025-11-12",
+          "value": 19.5,
           "status": "↑",
           "flag": "↑",
           "phase": null
@@ -2157,17 +2157,17 @@
           "phase": null
         },
         {
+          "date": "2025-11-04",
+          "value": 22.6,
+          "status": "↓",
+          "flag": "↓",
+          "phase": null
+        },
+        {
           "date": "2025-11-12",
           "value": 20.2,
           "status": "↓↓",
           "flag": "↓↓",
-          "phase": null
-        },
-        {
-          "date": "2025-11-4 8:44:25",
-          "value": 22.6,
-          "status": "↓",
-          "flag": "↓",
           "phase": null
         }
       ]
@@ -2250,7 +2250,7 @@
           "phase": null
         },
         {
-          "date": "2025-11-4 8:44:25",
+          "date": "2025-11-04",
           "value": 18.3,
           "status": "↑",
           "flag": "↑",
@@ -2329,7 +2329,7 @@
           "phase": null
         },
         {
-          "date": "2025-11-4 8:44:25",
+          "date": "2025-11-04",
           "value": 0.09,
           "status": "↓",
           "flag": "↓",
@@ -2364,7 +2364,7 @@
       "unit": "fl",
       "ref": {
         "lower": 15.0,
-        "upper": -17.0
+        "upper": 17.0
       },
       "series": [
         {
@@ -2470,17 +2470,17 @@
           "phase": null
         },
         {
+          "date": "2025-11-04",
+          "value": 99.0,
+          "status": "↓",
+          "flag": "↓",
+          "phase": null
+        },
+        {
           "date": "2025-11-12",
           "value": 50.0,
           "status": "↓↓",
           "flag": "↓↓",
-          "phase": null
-        },
-        {
-          "date": "2025-11-4 8:44:25",
-          "value": 99.0,
-          "status": "↓",
-          "flag": "↓",
           "phase": null
         }
       ]
@@ -2563,17 +2563,17 @@
           "phase": null
         },
         {
+          "date": "2025-11-04",
+          "value": 72.5,
+          "status": "↓",
+          "flag": "↓",
+          "phase": null
+        },
+        {
           "date": "2025-11-12",
           "value": 70.0,
           "status": "↓↓",
           "flag": "↓↓",
-          "phase": null
-        },
-        {
-          "date": "2025-11-4 8:44:25",
-          "value": 72.5,
-          "status": "↓",
-          "flag": "↓",
           "phase": null
         }
       ]
