@@ -116,11 +116,19 @@ def export_payload() -> dict:
 
             series = []
             for row in rows:
+                flag_raw = (row['flag'] or '').strip()
+                norm_flag = ''
+                if '↓' in flag_raw:
+                    norm_flag = '↓'
+                elif '↑' in flag_raw:
+                    norm_flag = '↑'
+                elif '-' in flag_raw:
+                    norm_flag = '-'
                 s = {
                     'date': normalize_date_str(row['date']),
                     'value': row['value'],
                     'status': row['status'],
-                    'flag': row['flag'],
+                    'flag': norm_flag or row['flag'],
                     'phase': row['phase']
                 }
                 # 如果 flag/status 为空或缺失，则根据参考范围与数值推断
