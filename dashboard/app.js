@@ -763,6 +763,9 @@
         } else if (fmt === 'pdf') {
           await exportPDF(base + '.pdf');
           showToast('PDF 导出完成');
+        } else if (fmt === 'png') {
+          await exportPNG(base + '.png');
+          showToast('PDF 导出完成');
         }
       } catch (err) {
         showError('导出失败：' + (err && err.message ? err.message : String(err)));
@@ -977,19 +980,65 @@
       });
     }
     await ensureLib();
+    const tmp = document.createElement('div');
+    tmp.style.position = 'fixed';
+    tmp.style.left = '-99999px';
+    tmp.style.top = '0';
     const node = pivotWrapper.cloneNode(true);
     const ths = node.querySelectorAll('thead th');
     ths.forEach((el) => { el.style.position = 'static'; el.style.top = 'auto'; });
+    tmp.appendChild(node);
+    document.body.appendChild(tmp);
     const opt = { margin: 10, filename, image: { type: 'jpeg', quality: 0.98 }, html2canvas: { scale: 2 }, jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' }, pagebreak: { mode: ['css','legacy'] } };
-    const worker = html2pdf().set(opt).from(node).toPdf();
-    const pdf = await worker.get('pdf');
-    const blob = pdf.output('blob');
-    const url = URL.createObjectURL(blob);
+    try {
+      await html2pdf().set(opt).from(node).save();
+    } catch (e) {
+      try {
+        const worker = html2pdf().set(opt).from(node).toPdf();
+        const pdf = await worker.get('pdf');
+        const blob = pdf.output('blob');
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url; a.download = filename; a.target = '_blank';
+        document.body.appendChild(a);
+        a.click();
+        setTimeout(() => { URL.revokeObjectURL(url); a.remove(); }, 250);
+      } catch (err) {
+        throw err;
+      }
+    } finally {
+      document.body.removeChild(tmp);
+    }
+  }
+
+  async function exportPNG(filename) {
+    async function ensureCanvas() {
+      if (typeof html2canvas !== 'undefined') return;
+      await new Promise((res, rej) => {
+        const s = document.createElement('script');
+        s.src = 'https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js';
+        s.onload = res; s.onerror = rej; document.head.appendChild(s);
+      });
+    }
+    await ensureCanvas();
+    const tmp = document.createElement('div');
+    tmp.style.position = 'fixed';
+    tmp.style.left = '-99999px';
+    tmp.style.top = '0';
+    const node = pivotWrapper.cloneNode(true);
+    node.style.width = '390px';
+    tmp.appendChild(node);
+    document.body.appendChild(tmp);
+    const canvas = await html2canvas(node, { scale: 2, backgroundColor: '#ffffff' });
+    const url = canvas.toDataURL('image/png');
     const a = document.createElement('a');
-    a.href = url; a.download = filename; a.target = '_blank';
+    a.href = url;
+    a.download = filename;
+    a.target = '_blank';
     document.body.appendChild(a);
     a.click();
-    setTimeout(() => { URL.revokeObjectURL(url); a.remove(); }, 250);
+    setTimeout(() => { a.remove(); }, 250);
+    document.body.removeChild(tmp);
   }
 
   function ensureProgressDom() {
