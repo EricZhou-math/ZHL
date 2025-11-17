@@ -98,6 +98,9 @@
 
   const startDate = new Date(data.start_date);
   const cycleLen = Number(data.cycle_length_days || 21);
+  const BASELINE_DATE = '2025-08-06';
+  const BASELINE_CATEGORY = '-2';
+  const BASELINE_PHASE = '化疗前2天';
 
   // 指标分类：核心与扩展
   const indNames = Object.keys(data.indicators);
@@ -313,13 +316,14 @@
       xAxis: {
         type: 'category',
         data: xData,
-        axisLabel: { formatter: value => value, fontSize: RS.axisFont, rotate: RS.rotate, hideOverlap: true },
+        axisLabel: { formatter: value => (value === BASELINE_CATEGORY ? BASELINE_PHASE : value), fontSize: RS.axisFont, rotate: RS.rotate, hideOverlap: true },
         axisPointer: {
           show: true,
           snap: true,
           label: {
             formatter: params => {
               const rawDate = params.value;
+              if (rawDate === BASELINE_CATEGORY) return BASELINE_PHASE;
               const idx = xData.indexOf(rawDate);
               const phase = (idx >= 0 && seriesData[idx]) ? (seriesData[idx].phase || seriesData[idx].phaseLabel || computePhaseLabel(rawDate)) : computePhaseLabel(rawDate);
               return `${formatDateDot(rawDate)}\n${phase}`;
@@ -423,7 +427,7 @@
         });
         // 新增：趋势拟合线（浅色虚线）
         if (showTrendInput && showTrendInput.checked) {
-          const trend = computeTrendLoess(seriesData);
+          const trend = computeTrendLoess(seriesData.filter(pt => pt.date !== BASELINE_CATEGORY));
           arr.push({
             name: '趋势拟合',
             type: 'line',
@@ -484,8 +488,10 @@
       card.appendChild(chartDiv);
       chartsCore.appendChild(card);
 
+      const baselinePt = seriesAll.find(pt => pt.date === BASELINE_DATE);
+      const withBaseline = baselinePt ? [{ date: BASELINE_CATEGORY, value: baselinePt.value, phaseLabel: BASELINE_PHASE }].concat(filtered) : filtered;
       const chart = echarts.init(chartDiv);
-      const built = buildOption(name, filtered, unit, ind.ref || null);
+      const built = buildOption(name, withBaseline, unit, ind.ref || null);
       chart.setOption(built.option);
       chart.on('updateAxisPointer', built.onAxisPointerUpdate);
       chart.resize();
@@ -522,8 +528,10 @@
       card.appendChild(chartDiv);
       chartsContainer.appendChild(card);
 
+      const baselinePt = seriesAll.find(pt => pt.date === BASELINE_DATE);
+      const withBaseline = baselinePt ? [{ date: BASELINE_CATEGORY, value: baselinePt.value, phaseLabel: BASELINE_PHASE }].concat(filtered) : filtered;
       const chart = echarts.init(chartDiv);
-      const built = buildOption(name, filtered, unit, ind.ref || null);
+      const built = buildOption(name, withBaseline, unit, ind.ref || null);
       chart.setOption(built.option);
       chart.on('updateAxisPointer', built.onAxisPointerUpdate);
       chart.resize();
