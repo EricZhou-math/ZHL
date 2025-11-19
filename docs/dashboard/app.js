@@ -302,7 +302,7 @@
   if (exportBtn && exportDropdown && exportMenu) {
     exportBtn.addEventListener('click', () => { const opened = exportDropdown.classList.contains('open'); exportDropdown.classList.toggle('open', !opened); exportBtn.setAttribute('aria-expanded', (!opened).toString()); });
     document.addEventListener('click', (e) => { if (!exportDropdown.contains(e.target)) { exportDropdown.classList.remove('open'); exportBtn.setAttribute('aria-expanded', 'false'); } });
-    exportMenu.addEventListener('click', async (e) => { const target = e.target; if (!target || !target.dataset || !target.dataset.format) return; const fmt = target.dataset.format; const selected = getSelectedIndicators(); const allShown = coreNames.concat(selected); const now = new Date(); const yyyy = String(now.getFullYear()); const mm = String(now.getMonth() + 1).padStart(2, '0'); const dd = String(now.getDate()).padStart(2, '0'); const base = `pivot-${yyyy}-${mm}-${dd}`; try { if (fmt === 'csv') { const rows = collectPivotData(allShown); await exportCSV(rows, base + '.csv'); showToast('CSV 导出完成'); } else if (fmt === 'md') { const rows = collectPivotData(allShown); await exportMarkdown(rows, base + '.md'); showToast('Markdown 导出完成'); } else if (fmt === 'xlsx') { const rows = collectPivotData(allShown); await exportExcel(rows, base + '.xlsx'); showToast('Excel 导出完成'); } else if (fmt === 'pdf') { await exportPDF(base + '.pdf'); showToast('PDF 导出完成'); } else if (fmt === 'png') { await exportPNG(base + '.png'); showToast('PNG 导出完成'); } } catch (err) { showError('导出失败：' + (err && err.message ? err.message : String(err))); } finally { exportDropdown.classList.remove('open'); exportBtn.setAttribute('aria-expanded', 'false'); } });
+    exportMenu.addEventListener('click', async (e) => { const target = e.target; if (!target || !target.dataset || !target.dataset.format) return; const fmt = target.dataset.format; const selected = getSelectedIndicators(); const allShown = coreNames.concat(selected); const now = new Date(); const yyyy = String(now.getFullYear()); const mm = String(now.getMonth() + 1).padStart(2, '0'); const dd = String(now.getDate()).padStart(2, '0'); const base = `pivot-${yyyy}-${mm}-${dd}`; try { if (fmt === 'csv') { const rows = collectPivotData(allShown); await exportCSV(rows, base + '.csv'); showToast('CSV 导出完成'); } else if (fmt === 'md') { const rows = collectPivotData(allShown); await exportMarkdown(rows, base + '.md'); showToast('Markdown 导出完成'); } else if (fmt === 'xlsx') { const rows = collectPivotData(allShown); await exportExcel(rows, base + '.xlsx'); showToast('Excel 导出完成'); } else if (fmt === 'pdf') { await exportPDF(base + '.pdf'); showToast('PDF 导出完成'); } else if (fmt === 'png') { await exportPNG(base + '.png'); showToast('PNG 导出完成'); } else if (fmt === 'png-min') { await exportPNGMinimal(base + '-min.png'); showToast('PNG（极简版）导出完成'); } } catch (err) { showError('导出失败：' + (err && err.message ? err.message : String(err))); } finally { exportDropdown.classList.remove('open'); exportBtn.setAttribute('aria-expanded', 'false'); } });
   }
 
   function collectPivotData(selectedInds) {
@@ -322,7 +322,74 @@
   async function exportExcel(rows, filename) { if (typeof ExcelJS === 'undefined') return; const wb = new ExcelJS.Workbook(); const ws = wb.addWorksheet('Pivot'); const totalRows = rows.length; const needsProgress = totalRows >= 10000; if (needsProgress) showProgress('正在导出 Excel'); const chunk = 500; for (let i = 0; i < totalRows; i += chunk) { const end = Math.min(i + chunk, totalRows); for (let r = i; r < end; r++) ws.addRow(rows[r]); if (needsProgress) { updateProgress(Math.round((end / totalRows) * 100)); await new Promise((res) => setTimeout(res, 0)); } } const headerRows = 2; for (let r = 1; r <= headerRows; r++) { const row = ws.getRow(r); row.font = { bold: true }; row.alignment = { vertical: 'middle', horizontal: 'center' }; row.eachCell({ includeEmpty: true }, (cell) => { cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FFF9F9F9' } }; }); } ws.views = [{ state: 'frozen', xSplit: 0, ySplit: 2 }]; const widths = []; const colCount = rows[0] ? rows[0].length : 0; for (let c = 0; c < colCount; c++) { let max = 10; for (let r = 0; r < Math.min(rows.length, 100); r++) { const v = rows[r][c]; const len = v == null ? 0 : String(v).length; if (len > max) max = len; } widths.push({ width: Math.min(40, Math.max(10, Math.ceil(max * 1.2))) }); } ws.columns = widths; const buf = await wb.xlsx.writeBuffer(); const blob = new Blob([buf], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' }); const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href = url; a.download = filename; a.target = '_blank'; document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(url); a.remove(); }, 250); if (needsProgress) hideProgress(); }
   async function exportPDF(filename) { async function ensureLib() { if (typeof html2pdf !== 'undefined') return; await new Promise((res, rej) => { const s = document.createElement('script'); s.src = 'https://cdn.jsdelivr.net/npm/html2pdf.js@0.9.3/dist/html2pdf.bundle.min.js'; s.onload = res; s.onerror = rej; document.head.appendChild(s); }); } await ensureLib(); const tmp = document.createElement('div'); tmp.style.position = 'fixed'; tmp.style.left = '-99999px'; tmp.style.top = '0'; const node = pivotWrapper.cloneNode(true); const ths = node.querySelectorAll('thead th'); ths.forEach((el) => { el.style.position = 'static'; el.style.top = 'auto'; }); tmp.appendChild(node); document.body.appendChild(tmp); const opt = { margin: 10, filename, image: { type: 'jpeg', quality: 0.98 }, html2canvas: { scale: 2 }, jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' }, pagebreak: { mode: ['css','legacy'] } }; try { await html2pdf().set(opt).from(node).save(); } catch (e) { const worker = html2pdf().set(opt).from(node).toPdf(); const pdf = await worker.get('pdf'); const blob = pdf.output('blob'); const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href = url; a.download = filename; a.target = '_blank'; document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(url); a.remove(); }, 250); } finally { document.body.removeChild(tmp); } }
 
-  async function exportPNG(filename) { async function ensureCanvas() { if (typeof html2canvas !== 'undefined') return; await new Promise((res, rej) => { const s = document.createElement('script'); s.src = 'https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js'; s.onload = res; s.onerror = rej; document.head.appendChild(s); }); } await ensureCanvas(); const tmp = document.createElement('div'); tmp.style.position = 'fixed'; tmp.style.left = '-99999px'; tmp.style.top = '0'; const node = pivotWrapper.cloneNode(true); node.style.width = '390px'; tmp.appendChild(node); document.body.appendChild(tmp); const canvas = await html2canvas(node, { scale: 2, backgroundColor: '#ffffff' }); const url = canvas.toDataURL('image/png'); const a = document.createElement('a'); a.href = url; a.download = filename; a.target = '_blank'; document.body.appendChild(a); a.click(); setTimeout(() => { a.remove(); }, 250); document.body.removeChild(tmp); }
+  async function exportPNG(filename) {
+    async function ensureCanvas() { if (typeof html2canvas !== 'undefined') return; await new Promise((res, rej) => { const s = document.createElement('script'); s.src = 'https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js'; s.onload = res; s.onerror = rej; document.head.appendChild(s); }); }
+    await ensureCanvas();
+    const tmp = document.createElement('div');
+    tmp.style.position = 'fixed'; tmp.style.left = '-99999px'; tmp.style.top = '0'; tmp.style.background = '#ffffff';
+    const originalTable = pivotWrapper.querySelector('table');
+    const tableNode = originalTable ? originalTable.cloneNode(true) : null;
+    const node = tableNode || pivotWrapper.cloneNode(true);
+    node.querySelectorAll('thead th').forEach((el) => { el.style.position = 'static'; el.style.top = 'auto'; });
+
+    function measureTextWidth(text, font) { const canvas = document.createElement('canvas'); const ctx = canvas.getContext('2d'); ctx.font = font || '12px Arial'; return Math.ceil(ctx.measureText(String(text || '')).width); }
+    function computeColWidths(tableEl) {
+      const headerRow = tableEl.querySelector('thead tr'); const colCount = headerRow ? headerRow.children.length : 0;
+      const widths = new Array(colCount).fill(0); const font = '12px Arial'; const pad = 16;
+      const heads = tableEl.querySelectorAll('thead tr');
+      for (let r = 0; r < heads.length; r++) { const cells = heads[r].children; for (let c = 0; c < colCount; c++) { const cell = cells[c]; if (!cell) continue; const w = measureTextWidth((cell.textContent || '').trim(), font) + pad; if (w > widths[c]) widths[c] = w; } }
+      const rows = tableEl.querySelectorAll('tbody tr');
+      for (let r = 0; r < rows.length; r++) { const cells = rows[r].children; for (let c = 0; c < colCount; c++) { const cell = cells[c]; if (!cell) continue; const w = measureTextWidth((cell.textContent || '').trim(), font) + pad; if (w > widths[c]) widths[c] = w; } }
+      for (let c = 0; c < colCount; c++) { let minW = 70, maxW = 140; if (c === 0) { minW = 120; maxW = 260; } else if (c === 1) { minW = 100; maxW = 180; } widths[c] = Math.min(maxW, Math.max(minW, Math.ceil(widths[c]))); }
+      return widths;
+    }
+
+    const tableForWidths = originalTable || node.querySelector('table') || node;
+    const widths = computeColWidths(tableForWidths);
+
+    const tableEl = node.tagName && node.tagName.toLowerCase() === 'table' ? node : node.querySelector('table');
+    if (tableEl) {
+      const colgroup = document.createElement('colgroup');
+      for (let i = 0; i < widths.length; i++) { const col = document.createElement('col'); col.style.width = widths[i] + 'px'; colgroup.appendChild(col); }
+      tableEl.insertBefore(colgroup, tableEl.firstChild);
+      tableEl.style.tableLayout = 'fixed'; tableEl.style.wordBreak = 'break-word'; tableEl.style.whiteSpace = 'normal';
+    }
+
+    const fullWidth = widths.reduce((a, b) => a + b, 0) || (originalTable ? (originalTable.scrollWidth || originalTable.offsetWidth) : (pivotWrapper.scrollWidth || pivotWrapper.offsetWidth));
+    const targetWidth = 390; const scaleRatio = fullWidth > 0 ? Math.min(1, targetWidth / fullWidth) : 1;
+    if (tableEl) tableEl.style.width = fullWidth + 'px';
+    node.style.transformOrigin = 'top left'; node.style.transform = `scale(${scaleRatio})`;
+
+    const frame = document.createElement('div'); frame.style.width = targetWidth + 'px'; frame.style.overflow = 'visible'; frame.appendChild(node);
+    tmp.appendChild(frame); document.body.appendChild(tmp);
+    const canvas = await html2canvas(frame, { scale: 2, backgroundColor: '#ffffff' });
+    const url = canvas.toDataURL('image/png'); const a = document.createElement('a'); a.href = url; a.download = filename; a.target = '_blank'; document.body.appendChild(a); a.click(); setTimeout(() => { a.remove(); }, 250); document.body.removeChild(tmp);
+  }
+
+  async function exportPNGMinimal(filename) {
+    async function ensureCanvas() { if (typeof html2canvas !== 'undefined') return; await new Promise((res, rej) => { const s = document.createElement('script'); s.src = 'https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js'; s.onload = res; s.onerror = rej; document.head.appendChild(s); }); }
+    await ensureCanvas();
+    const tmp = document.createElement('div'); tmp.style.position = 'fixed'; tmp.style.left = '-99999px'; tmp.style.top = '0'; tmp.style.background = '#ffffff';
+    const originalTable = pivotWrapper.querySelector('table');
+    const tableNode = originalTable ? originalTable.cloneNode(true) : null;
+    const node = tableNode || pivotWrapper.cloneNode(true);
+    node.querySelectorAll('thead th').forEach((el) => { el.style.position = 'static'; el.style.top = 'auto'; });
+
+    function measureTextWidth(text, font) { const canvas = document.createElement('canvas'); const ctx = canvas.getContext('2d'); ctx.font = font || '11px Arial'; return Math.ceil(ctx.measureText(String(text || '')).width); }
+    function computeColWidths(tableEl) { const headerRow = tableEl.querySelector('thead tr'); const colCount = headerRow ? headerRow.children.length : 0; const widths = new Array(colCount).fill(0); const font = '11px Arial'; const pad = 10; const heads = tableEl.querySelectorAll('thead tr'); for (let r = 0; r < heads.length; r++) { const cells = heads[r].children; for (let c = 0; c < colCount; c++) { const cell = cells[c]; if (!cell) continue; const w = measureTextWidth((cell.textContent || '').trim(), font) + pad; if (w > widths[c]) widths[c] = w; } } const rows = tableEl.querySelectorAll('tbody tr'); for (let r = 0; r < rows.length; r++) { const cells = rows[r].children; for (let c = 0; c < colCount; c++) { const cell = cells[c]; if (!cell) continue; const w = measureTextWidth((cell.textContent || '').trim(), font) + pad; if (w > widths[c]) widths[c] = w; } } for (let c = 0; c < colCount; c++) { let minW = 50, maxW = 100; if (c === 0) { minW = 90; maxW = 160; } else if (c === 1) { minW = 80; maxW = 120; } widths[c] = Math.min(maxW, Math.max(minW, Math.ceil(widths[c]))); } return widths; }
+
+    const tableForWidths = originalTable || node.querySelector('table') || node;
+    const widths = computeColWidths(tableForWidths);
+    const tableEl = node.tagName && node.tagName.toLowerCase() === 'table' ? node : node.querySelector('table');
+    if (tableEl) { const colgroup = document.createElement('colgroup'); for (let i = 0; i < widths.length; i++) { const col = document.createElement('col'); col.style.width = widths[i] + 'px'; colgroup.appendChild(col); } tableEl.insertBefore(colgroup, tableEl.firstChild); tableEl.style.tableLayout = 'fixed'; tableEl.style.wordBreak = 'break-word'; tableEl.style.whiteSpace = 'normal'; tableEl.style.fontSize = '11px'; tableEl.querySelectorAll('th, td').forEach((el) => { el.style.padding = '4px 4px'; }); }
+
+    const fullWidth = widths.reduce((a, b) => a + b, 0) || (originalTable ? (originalTable.scrollWidth || originalTable.offsetWidth) : (pivotWrapper.scrollWidth || pivotWrapper.offsetWidth));
+    const targetWidth = 390; const scaleRatio = fullWidth > 0 ? Math.min(1, targetWidth / fullWidth) : 1;
+    if (tableEl) tableEl.style.width = fullWidth + 'px'; node.style.transformOrigin = 'top left'; node.style.transform = `scale(${scaleRatio})`;
+
+    const frame = document.createElement('div'); frame.style.width = targetWidth + 'px'; frame.style.overflow = 'visible'; frame.appendChild(node); tmp.appendChild(frame); document.body.appendChild(tmp);
+    const canvas = await html2canvas(frame, { scale: 2, backgroundColor: '#ffffff' }); const url = canvas.toDataURL('image/png'); const a = document.createElement('a'); a.href = url; a.download = filename; a.target = '_blank'; document.body.appendChild(a); a.click(); setTimeout(() => { a.remove(); }, 250); document.body.removeChild(tmp);
+  }
 
   function ensureProgressDom() { let overlay = document.getElementById('progressOverlay'); if (!overlay) { overlay = document.createElement('div'); overlay.id = 'progressOverlay'; overlay.className = 'progress-overlay'; const card = document.createElement('div'); card.className = 'progress-card'; const title = document.createElement('div'); title.className = 'progress-title'; title.id = 'progressTitle'; const bar = document.createElement('div'); bar.className = 'progress-bar'; const inner = document.createElement('div'); inner.className = 'progress-bar-inner'; inner.id = 'progressInner'; bar.appendChild(inner); card.appendChild(title); card.appendChild(bar); overlay.appendChild(card); document.body.appendChild(overlay); } return overlay; }
   function showProgress(title) { const overlay = ensureProgressDom(); const t = document.getElementById('progressTitle'); if (t) t.textContent = title || ''; const inner = document.getElementById('progressInner'); if (inner) inner.style.width = '0%'; overlay.style.display = 'flex'; }
