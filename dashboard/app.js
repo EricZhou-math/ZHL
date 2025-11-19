@@ -774,6 +774,9 @@
         } else if (fmt === 'png') {
           await exportPNG(base + '.png');
           showToast('PNG 导出完成');
+        } else if (fmt === 'png-min') {
+          await exportPNGMinimal(base + '-min.png');
+          showToast('PNG（极简版）导出完成');
         }
       } catch (err) {
         showError('导出失败：' + (err && err.message ? err.message : String(err)));
@@ -1034,21 +1037,202 @@
     tmp.style.left = '-99999px';
     tmp.style.top = '0';
     tmp.style.background = '#ffffff';
+
     const originalTable = pivotWrapper.querySelector('table');
-    const node = originalTable ? originalTable.cloneNode(true) : pivotWrapper.cloneNode(true);
-    node.querySelectorAll('thead th').forEach(el => { el.style.position = 'static'; el.style.top = 'auto'; });
-    const fullWidth = originalTable ? (originalTable.scrollWidth || originalTable.offsetWidth) : (pivotWrapper.scrollWidth || pivotWrapper.offsetWidth);
+    const tableNode = originalTable ? originalTable.cloneNode(true) : null;
+    const node = tableNode || pivotWrapper.cloneNode(true);
+
+    node.querySelectorAll('thead th').forEach((el) => { el.style.position = 'static'; el.style.top = 'auto'; });
+
+    function measureTextWidth(text, font) {
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      ctx.font = font || '12px Arial';
+      return Math.ceil(ctx.measureText(String(text || '')).width);
+    }
+    function computeColWidths(tableEl) {
+      const headerRow = tableEl.querySelector('thead tr');
+      const colCount = headerRow ? headerRow.children.length : 0;
+      const widths = new Array(colCount).fill(0);
+      const font = '12px Arial';
+      const pad = 16;
+      const heads = tableEl.querySelectorAll('thead tr');
+      for (let r = 0; r < heads.length; r++) {
+        const cells = heads[r].children;
+        for (let c = 0; c < colCount; c++) {
+          const cell = cells[c];
+          if (!cell) continue;
+          const w = measureTextWidth((cell.textContent || '').trim(), font) + pad;
+          if (w > widths[c]) widths[c] = w;
+        }
+      }
+      const rows = tableEl.querySelectorAll('tbody tr');
+      for (let r = 0; r < rows.length; r++) {
+        const cells = rows[r].children;
+        for (let c = 0; c < colCount; c++) {
+          const cell = cells[c];
+          if (!cell) continue;
+          const w = measureTextWidth((cell.textContent || '').trim(), font) + pad;
+          if (w > widths[c]) widths[c] = w;
+        }
+      }
+      for (let c = 0; c < colCount; c++) {
+        let minW = 70, maxW = 140;
+        if (c === 0) { minW = 120; maxW = 260; }
+        else if (c === 1) { minW = 100; maxW = 180; }
+        widths[c] = Math.min(maxW, Math.max(minW, Math.ceil(widths[c])));
+      }
+      return widths;
+    }
+
+    const tableForWidths = originalTable || node.querySelector('table') || node;
+    const widths = computeColWidths(tableForWidths);
+
+    if (node.tagName && node.tagName.toLowerCase() !== 'table') {
+      const innerTable = node.querySelector('table');
+      if (innerTable) {
+        innerTable.querySelectorAll('thead th').forEach((el) => { el.style.position = 'static'; el.style.top = 'auto'; });
+      }
+    }
+
+    const tableEl = node.tagName && node.tagName.toLowerCase() === 'table' ? node : node.querySelector('table');
+    if (tableEl) {
+      const colgroup = document.createElement('colgroup');
+      for (let i = 0; i < widths.length; i++) {
+        const col = document.createElement('col');
+        col.style.width = widths[i] + 'px';
+        colgroup.appendChild(col);
+      }
+      tableEl.insertBefore(colgroup, tableEl.firstChild);
+      tableEl.style.tableLayout = 'fixed';
+      tableEl.style.wordBreak = 'break-word';
+      tableEl.style.whiteSpace = 'normal';
+    }
+
+    const fullWidth = widths.reduce((a, b) => a + b, 0) || (originalTable ? (originalTable.scrollWidth || originalTable.offsetWidth) : (pivotWrapper.scrollWidth || pivotWrapper.offsetWidth));
     const targetWidth = 390;
     const scaleRatio = fullWidth > 0 ? Math.min(1, targetWidth / fullWidth) : 1;
-    node.style.width = fullWidth + 'px';
+
+    if (tableEl) tableEl.style.width = fullWidth + 'px';
     node.style.transformOrigin = 'top left';
     node.style.transform = `scale(${scaleRatio})`;
+
     const frame = document.createElement('div');
     frame.style.width = targetWidth + 'px';
     frame.style.overflow = 'visible';
     frame.appendChild(node);
     tmp.appendChild(frame);
     document.body.appendChild(tmp);
+
+    const canvas = await html2canvas(frame, { scale: 2, backgroundColor: '#ffffff' });
+    const url = canvas.toDataURL('image/png');
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    a.target = '_blank';
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(() => { a.remove(); }, 250);
+    document.body.removeChild(tmp);
+  }
+
+  async function exportPNGMinimal(filename) {
+    async function ensureCanvas() {
+      if (typeof html2canvas !== 'undefined') return;
+      await new Promise((res, rej) => {
+        const s = document.createElement('script');
+        s.src = 'https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js';
+        s.onload = res; s.onerror = rej; document.head.appendChild(s);
+      });
+    }
+    await ensureCanvas();
+    const tmp = document.createElement('div');
+    tmp.style.position = 'fixed';
+    tmp.style.left = '-99999px';
+    tmp.style.top = '0';
+    tmp.style.background = '#ffffff';
+
+    const originalTable = pivotWrapper.querySelector('table');
+    const tableNode = originalTable ? originalTable.cloneNode(true) : null;
+    const node = tableNode || pivotWrapper.cloneNode(true);
+
+    node.querySelectorAll('thead th').forEach((el) => { el.style.position = 'static'; el.style.top = 'auto'; });
+
+    function measureTextWidth(text, font) {
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      ctx.font = font || '11px Arial';
+      return Math.ceil(ctx.measureText(String(text || '')).width);
+    }
+    function computeColWidths(tableEl) {
+      const headerRow = tableEl.querySelector('thead tr');
+      const colCount = headerRow ? headerRow.children.length : 0;
+      const widths = new Array(colCount).fill(0);
+      const font = '11px Arial';
+      const pad = 10;
+      const heads = tableEl.querySelectorAll('thead tr');
+      for (let r = 0; r < heads.length; r++) {
+        const cells = heads[r].children;
+        for (let c = 0; c < colCount; c++) {
+          const cell = cells[c];
+          if (!cell) continue;
+          const w = measureTextWidth((cell.textContent || '').trim(), font) + pad;
+          if (w > widths[c]) widths[c] = w;
+        }
+      }
+      const rows = tableEl.querySelectorAll('tbody tr');
+      for (let r = 0; r < rows.length; r++) {
+        const cells = rows[r].children;
+        for (let c = 0; c < colCount; c++) {
+          const cell = cells[c];
+          if (!cell) continue;
+          const w = measureTextWidth((cell.textContent || '').trim(), font) + pad;
+          if (w > widths[c]) widths[c] = w;
+        }
+      }
+      for (let c = 0; c < colCount; c++) {
+        let minW = 50, maxW = 100;
+        if (c === 0) { minW = 90; maxW = 160; }
+        else if (c === 1) { minW = 80; maxW = 120; }
+        widths[c] = Math.min(maxW, Math.max(minW, Math.ceil(widths[c])));
+      }
+      return widths;
+    }
+
+    const tableForWidths = originalTable || node.querySelector('table') || node;
+    const widths = computeColWidths(tableForWidths);
+
+    const tableEl = node.tagName && node.tagName.toLowerCase() === 'table' ? node : node.querySelector('table');
+    if (tableEl) {
+      const colgroup = document.createElement('colgroup');
+      for (let i = 0; i < widths.length; i++) {
+        const col = document.createElement('col');
+        col.style.width = widths[i] + 'px';
+        colgroup.appendChild(col);
+      }
+      tableEl.insertBefore(colgroup, tableEl.firstChild);
+      tableEl.style.tableLayout = 'fixed';
+      tableEl.style.wordBreak = 'break-word';
+      tableEl.style.whiteSpace = 'normal';
+      tableEl.style.fontSize = '11px';
+      tableEl.querySelectorAll('th, td').forEach((el) => { el.style.padding = '4px 4px'; });
+    }
+
+    const fullWidth = widths.reduce((a, b) => a + b, 0) || (originalTable ? (originalTable.scrollWidth || originalTable.offsetWidth) : (pivotWrapper.scrollWidth || pivotWrapper.offsetWidth));
+    const targetWidth = 390;
+    const scaleRatio = fullWidth > 0 ? Math.min(1, targetWidth / fullWidth) : 1;
+
+    if (tableEl) tableEl.style.width = fullWidth + 'px';
+    node.style.transformOrigin = 'top left';
+    node.style.transform = `scale(${scaleRatio})`;
+
+    const frame = document.createElement('div');
+    frame.style.width = targetWidth + 'px';
+    frame.style.overflow = 'visible';
+    frame.appendChild(node);
+    tmp.appendChild(frame);
+    document.body.appendChild(tmp);
+
     const canvas = await html2canvas(frame, { scale: 2, backgroundColor: '#ffffff' });
     const url = canvas.toDataURL('image/png');
     const a = document.createElement('a');
